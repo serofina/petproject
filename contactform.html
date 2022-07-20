@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<title>Contact form</title>
+</head>
+<body>
+	<h1>Contact Form</h1>
+	<!-- Change the email address to yours in this and you get an email it requires a captcha verification -->
+	<form action="https://mailthis.to/mark.f.mullett@gmail.com"
+    method="POST" encType="multipart/form-data">
+	    <input type="text" name="name" placeholder="Your name">
+	    <input type="email" name="_replyto" placeholder="Your email">
+	    <textarea name="message" placeholder="Enter your message here"></textarea>
+	    <input type="file" name="file" placeholder="Attachments (optional)">
+	    <input type="submit" value="Send">
+	    <!-- <input type="hidden" name="_subject" value="Contact form submitted">
+	    <input type="hidden" name="_after" value="https://myhomepage.net/">
+	    <input type="hidden" name="_honeypot" value="">
+	    <input type="hidden" name="_confirmation" value=""> 
+			https://mailthis.to/documentation.html-->
+	</form>
+	<script type="text/javascript" src="script.js"></script>
+</body>
+</html>
