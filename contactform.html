@@ -1,27 +1,57 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" type="text/css" href="style.css">
-	<title>Contact form</title>
-</head>
-<body>
-	<h1>Contact Form</h1>
-	<!-- Change the email address to yours in this and you get an email it requires a captcha verification -->
-	<form action="https://mailthis.to/mark.f.mullett@gmail.com"
-    method="POST" encType="multipart/form-data">
-	    <input type="text" name="name" placeholder="Your name">
-	    <input type="email" name="_replyto" placeholder="Your email">
-	    <textarea name="message" placeholder="Enter your message here"></textarea>
-	    <input type="file" name="file" placeholder="Attachments (optional)">
-	    <input type="submit" value="Send">
-	    <!-- <input type="hidden" name="_subject" value="Contact form submitted">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <title>Contact form</title>
+    <!-- Favicon -->
+    <link href="img/favicon.ico" rel="icon" />
+
+    <!-- Google Web Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito+Sans&family=Nunito:wght@600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Font Awesome -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Flaticon Font -->
+    <link href="lib/flaticon/font/flaticon.css" rel="stylesheet" />
+
+    <!-- Libraries Stylesheet -->
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet" />
+    <link
+      href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="css/style.css" rel="stylesheet" />
+  </head>
+  <body>
+    <h1>Contact Form</h1>
+    <!-- Change the email address to yours in this and you get an email it requires a captcha verification -->
+    <form
+      action="https://mailthis.to/mark.f.mullett@gmail.com"
+      method="POST"
+      enctype="multipart/form-data"
+    >
+      <input type="text" name="name" placeholder="Your name" />
+      <input type="email" name="_replyto" placeholder="Your email" />
+      <textarea name="message" placeholder="Enter your message here"></textarea>
+      <input type="file" name="file" placeholder="Attachments (optional)" />
+      <input type="submit" value="Send" />
+      <!-- <input type="hidden" name="_subject" value="Contact form submitted">
 	    <input type="hidden" name="_after" value="https://myhomepage.net/">
 	    <input type="hidden" name="_honeypot" value="">
 	    <input type="hidden" name="_confirmation" value=""> 
 			https://mailthis.to/documentation.html-->
-	</form>
-	<script type="text/javascript" src="script.js"></script>
-</body>
+    </form>
+    <script type="text/javascript" src="script.js"></script>
+  </body>
 </html>
