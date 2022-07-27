@@ -37,7 +37,7 @@
   </div>
   <div class="row py-3 px-lg-5">
     <div class="col-lg-4">
-      <a href="" class="navbar-brand d-none d-lg-block">
+      <a href="index.html" class="navbar-brand d-none d-lg-block">
         <h1 class="m-0 display-5 text-capitalize">
           <span class="text-primary">Pet</span>Hotel
         </h1>
@@ -47,7 +47,7 @@
       <div class="d-inline-flex align-items-center">
         <div class="d-inline-flex flex-column text-center pr-3 border-right">
           <h6>Opening Hours</h6>
-          <p class="m-0">8:00AM - 9:00PM</p>
+          <a href="index.html#openinghours-id">Check Hours</a>
         </div>
         <div class="d-inline-flex flex-column text-center px-3 border-right">
           <h6>Email Us</h6>
@@ -81,13 +81,6 @@
           <a href="service.html" class="nav-item nav-link">Service</a>
           <a href="requirements.html" class="nav-item nav-link">Requirements</a>
           <a href="booking.html" class="nav-item nav-link">Booking</a>
-          <!-- <div class="nav-item dropdown">
-            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages</a>
-            <div class="dropdown-menu rounded-0 m-0">
-              <a href="blog.html" class="dropdown-item">Blog Grid</a>
-              <a href="single.html" class="dropdown-item">Blog Detail</a>
-            </div>
-          </div> -->
           <a href="contact.html" class="nav-item nav-link">Contact</a>
         </div>
         <a href="" class="btn btn-lg btn-primary px-3 d-none d-lg-block">Customer Login</a>
@@ -95,7 +88,6 @@
     </nav>
   </div>
   <!-- Navbar End -->
-
   <!-- Carousel Start -->
   <div class="container-fluid p-0">
     <div id="header-carousel" class="carousel slide" data-ride="carousel">
@@ -144,7 +136,7 @@
                 We can host parties of up to 15 Dogs of all sizes
               </h5>
               <a href="booking.html" class="btn btn-lg btn-primary mt-3 mt-md-4 px-4">Book Now</a>
-              <a href="about.html" class="btn btn-lg btn-secondary mt-3 mt-md-4 px-4">Learn More</a>
+              <a href="tel:619-555-1234" class="btn btn-lg btn-secondary mt-3 mt-md-4 px-4">Call us</a> 
             </div>
           </div>
         </div>
@@ -223,19 +215,73 @@
         </ul>
         <a href="" class="btn btn-lg btn-primary mt-3 px-4">Learn More</a>
       </div>
-      <div class="col-lg-5">
-        <div class="row px-3">
-          <div class="col-12 p-0">
-            <img class="img-fluid w-100" src="img/about-1.jpg" alt="" />
+      <!-- Opening hours Start -->
+      <div class="col-lg-5" id="openinghours-id">
+        <section class="openinghours">
+          <div class="openinghourscontent section">
+              <div class="header">
+                   <h2>Opening hours</h2>
+              </div>
+              <table class="opening-hours-table">
+                  <tr id="Monday" itemprop="openingHours" title="Open Monday at 9am to 6pm">
+                      <td>Monday</td>
+                      <td class="opens">06:00 am</td>
+                      <td>-</td>
+                      <td class="closes">07:00 pm</td>
+                  </tr>
+                  <tr id="Tuesday" itemprop="openingHours" title="Open Tuesday at 9am to 6pm">
+                      <td>Tuesday</td>
+                      <td class="opens">06:00 am</td>
+                      <td>-</td>
+                      <td class="closes">07:00 pm</td>
+                  </tr>
+                  <tr id="Wednesday" itemprop="openingHours" title="Open Wednesday at 9am to 6pm">
+                      <td>Wednesday</td>
+                      <td class="opens">06:00 am</td>
+                      <td>-</td>
+                      <td class="closes">07:00 pm</td>
+                  </tr>
+                  <tr id="Thursday" itemprop="openingHours" title="Open Thursday at 9am to 8pm">
+                      <td>Thursday</td>
+                      <td class="opens">06:00 am</td>
+                      <td>-</td>
+                      <td class="closes">07:00 pm</td>
+                  </tr>
+                  <tr id="Friday" itemprop="openingHours" title="Open Friday at 9am to 6pm">
+                      <td>Friday</td>
+                      <td class="opens">06:00 am</td>
+                      <td>-</td>
+                      <td class="closes">07:00 pm</td>
+                  </tr>
+                  <tr id="Saturday" itemprop="openingHours" title="Open Saturday at 10am to 6pm">
+                      <td>Saturday</td>
+                      <td class="opens">08:00 am</td>
+                      <td>-</td>
+                      <td class="closes">05:00 pm</td>
+                  </tr>
+                  <tr id="Sunday" itemprop="openingHours" title="Open Sunday at 11am to 4pm">
+                      <td>Sunday</td>
+                      <td class="opens">close</td>
+                      <!-- <td>-</td>
+                      <td class="closes">16:00</td> -->
+                  </tr>
+              </table>
+              <script>
+                  (function(e, t, n, r) {
+                      if (e) return;
+                      t._appt = true;
+                      var i = n.createElement(r),
+                          s = n.getElementsByTagName(r)[0];
+                      i.async = true;
+                      i.src = '//dje0x8zlxc38k.cloudfront.net/loaders/s-min.js';
+                      s.parentNode.insertBefore(i, s)
+                  })(window._appt, window, document, "script")
+              </script>
           </div>
-          <div class="col-6 p-0">
-            <img class="img-fluid w-100" src="img/about-2.jpg" alt="" />
-          </div>
-          <div class="col-6 p-0">
-            <img class="img-fluid w-100" src="img/about-3.jpg" alt="" />
-          </div>
-        </div>
+      </section>
       </div>
+
+      <!-- Opening hours End -->
     </div>
   </div>
   <!-- About End -->
@@ -271,7 +317,6 @@
                   <option value="3">Dog Daycare</option>
                   <option value="1">Dog Bording</option>
                   <option value="2">Dog Grooming</option>
-                  <option value="3">Pet Tranning</option>
                   
                 </select>
               </div>
@@ -289,8 +334,8 @@
             Book For <span class="text-primary">Your Pet</span>
           </h1>
           <p>
-            Labore vero lorem eos sed aliquy ipsum aliquy sed. Vero dolore
-            dolore takima ipsum lorem rebum
+            Please select an option and the desired date and time.
+            One of our staff will contact you to confirm the appointment.
           </p>
           <div class="row py-2">
             <div class="col-sm-6">
@@ -300,8 +345,7 @@
                   <h5 class="text-truncate m-0">Pet Boarding</h5>
                 </div>
                 <p>
-                  Diam amet eos at no eos sit lorem, amet rebum ipsum clita
-                  stet
+                  Like daycare, boarding is also cage free. This means “pack boarding” with their friends and cared for by our qualified alpha human.
                 </p>
               </div>
             </div>
@@ -312,8 +356,7 @@
                   <h5 class="text-truncate m-0">Pet Feeding</h5>
                 </div>
                 <p>
-                  Diam amet eos at no eos sit lorem, amet rebum ipsum clita
-                  stet
+                  Please let us know about your pets dieatary needs.
                 </p>
               </div>
             </div>
@@ -324,20 +367,18 @@
                   <h5 class="text-truncate m-0">Pet Grooming</h5>
                 </div>
                 <p class="m-0">
-                  Diam amet eos at no eos sit lorem, amet rebum ipsum clita
-                  stet
+                  Our groomers are skilled, patient and most importantly, they love dogs! Dogs who get groomed while at Camp get to play right up until their appointment time.
                 </p>
               </div>
             </div>
             <div class="col-sm-6">
               <div class="d-flex flex-column">
                 <div class="d-flex align-items-center mb-2">
-                  <h1 class="flaticon-toy font-weight-normal text-secondary m-0 mr-3"></h1>
-                  <h5 class="text-truncate m-0">Pet Tranning</h5>
+                  <h1 class="flaticon-house font-weight-normal text-secondary m-0 mr-3"></h1>
+                  <h5 class="text-truncate m-0">Pet Daycare</h5>
                 </div>
                 <p class="m-0">
-                  Diam amet eos at no eos sit lorem, amet rebum ipsum clita
-                  stet
+                  Run with the pack, romp around with friends (both human and dog), play fetch, sniff all the smells, splash in our water feature, snooze in the sun.
                 </p>
               </div>
             </div>
