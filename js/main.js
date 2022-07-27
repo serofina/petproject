@@ -64,3 +64,9 @@
     },
   });
 })(jQuery);
+
+customerForm.addEventListener("click", (event) => {
+  event.preventDefault();
+  console.log("click", event);
+
+});
