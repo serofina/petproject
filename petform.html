@@ -63,34 +63,34 @@
   </div>
   <!-- Topbar End -->
 
- <!-- Navbar Start -->
- <div class="container-fluid p-0">
-  <nav class="navbar navbar-expand-lg bg-dark navbar-dark py-3 py-lg-0 px-lg-5">
-    <a href="" class="navbar-brand d-block d-lg-none">
-      <h1 class="m-0 display-5 text-capitalize font-italic text-white">
-        <span class="text-primary">Pet</span>Hotel
-      </h1>
-    </a>
-    <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse justify-content-between px-3" id="navbarCollapse">
-      <div class="navbar-nav mr-auto py-0">
-        <a href="index.html" class="nav-item nav-link active">Home</a>
-        <a href="about.html" class="nav-item nav-link">About</a>
-        <a href="service.html" class="nav-item nav-link">Service</a>
-        <a href="requirements.html" class="nav-item nav-link">Requirements</a>
-        <a href="booking.html" class="nav-item nav-link">Booking</a>
-        <a href="contact.html" class="nav-item nav-link">Contact</a>
-        <a href="faqs.html" class="nav-item nav-link">FAQs</a>
+  <!-- Navbar Start -->
+  <div class="container-fluid p-0">
+    <nav class="navbar navbar-expand-lg bg-dark navbar-dark py-3 py-lg-0 px-lg-5">
+      <a href="" class="navbar-brand d-block d-lg-none">
+        <h1 class="m-0 display-5 text-capitalize font-italic text-white">
+          <span class="text-primary">Pet</span>Hotel
+        </h1>
+      </a>
+      <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-between px-3" id="navbarCollapse">
+        <div class="navbar-nav mr-auto py-0">
+          <a href="index.html" class="nav-item nav-link active">Home</a>
+          <a href="about.html" class="nav-item nav-link">About</a>
+          <a href="service.html" class="nav-item nav-link">Service</a>
+          <a href="requirements.html" class="nav-item nav-link">Requirements</a>
+          <a href="booking.html" class="nav-item nav-link">Booking</a>
+          <a href="contact.html" class="nav-item nav-link">Contact</a>
+          <a href="faqs.html" class="nav-item nav-link">FAQs</a>
+        </div>
+        <a href="" class="form-btn btn-primary">Customer Login</a>
+        <a href="customerform.html" class="form-btn btn-primary">Sign Up</a>
+
       </div>
-      <a href="" class="form-btn btn-primary">Customer Login</a>
-      <a href="customerform.html" class="form-btn btn-primary">Sign Up</a>
-     
-    </div>
-  </nav>
-</div>
-<!-- Navbar End -->
+    </nav>
+  </div>
+  <!-- Navbar End -->
 
   <!-- Second Navy Bar -->
 
@@ -117,21 +117,30 @@
   <!-- customer form start -->
   <div id="petForm" class="pet-form">
     <form class="row g-3 bg-light pt-5 pb-4">
-      <div class="col-md-12">
+      <div class="col-md-6 col-form-label-lg">
         <label for="inputPetName" class="form-label">Pet Name</label>
-        <input type="text" class="form-control" id="inputPetName">
+        <input type="text" class="form-control" list="petname" id="inputPetName">
+        <datalist id="petname">
+          <option value="Pet1">
+          <option value="Pet2">
+        </datalist>
       </div>
-      <div class="col-md-12">
+      <div class="col-md-6 col-form-label-lg">
         <label for="inputDateOfBirth" class="form-label">Date of Birth or Date of Adoption</label>
         <input type="date" class="form-control" id="inputDateOfBirth">
       </div>
-      <div class="col-12">
+      <div class="col-md-6 col-form-label-lg">
+        <label for="inputPicture" class="form-label">Picture</label>
+        <input type="file" class="form-control" id="inputPicture">
+        <!-- not sure how this one works -->
+      </div>
+      <div class="col-md-6 col-form-label-lg">
         <label for="inputPersonality" class="form-label">Personality</label>
         <input type="text" class="form-control" id="inputPersonality" placeholder="Happy but lazy">
       </div>
-      <div class="col-md-6">
-        <label for="inputState" class="form-label">Breed</label>
-        <select id="inputState" class="form-select">
+      <div class="col-md-6 col-form-label-lg">
+        <label for="inputBreed" class="form-label">Breed</label>
+        <select id="inputBreed" class="form-select">
           <option selected>Choose...</option>
           <option>
           <option value="mixed">Mixed</option>
@@ -310,9 +319,9 @@
           </option>
         </select>
       </div>
-      <div class="col-md-6">
-        <label for="inputState" class="form-label"> Secondary Breed</label>
-        <select id="inputState" class="form-select">
+      <div class="col-md-6 col-form-label-lg">
+        <label for="inputSecondBreed" class="form-label"> Secondary Breed</label>
+        <select id="inputSecondBreed" class="form-select">
           <option selected>Choose...</option>
           <option>
           <option value="mixed">Mixed</option>
@@ -492,60 +501,59 @@
         </select>
       </div>
       <br>
-      <div class="col-4">
+      <div class="col-4 col-form-label-lg">
         <label for="inputRabiesDate" class="form-label">Date Received Rabies Vaccine</label>
-        <input type="date" class="form-control" id="inputRabiesDate">
+        <input type="date" class="form-control col-form-label-lg" id="inputRabiesDate">
       </div>
-      <div class="col-4">
+      <div class="col-4 col-form-label-lg">
         <label for="inputRabiesDueDate" class="form-label">Date Rabies Vaccine Due</label>
         <input type="date" class="form-control" id="inputRabiesDueDate">
       </div>
-      <div class="col-4">
+      <div class="col-4 col-form-label-lg">
         <label for="inputRabiesDocument" class="form-label">Rabies Vaccine Documents</label>
         <input type="file" class="form-control" id="inputRabiesDocument">
       </div>
-      <div class="col-4">
+      <div class="col-4 col-form-label-lg">
         <label for="inputDistemperDate" class="form-label">Date Received Distemper Vaccine</label>
         <input type="date" class="form-control" id="inputDistemperDate">
       </div>
-      <div class="col-4">
+      <div class="col-4 col-form-label-lg">
         <label for="inputDistemperDueDate" class="form-label">Date Distemper Vaccine Due</label>
         <input type="date" class="form-control" id="inputDistemperDueDate">
       </div>
-      <div class="col-4">
+      <div class="col-4 col-form-label-lg">
         <label for="inputDistemperDocument" class="form-label">Distemper Vaccine Documents</label>
         <input type="file" class="form-control" id="inputDistemperDocument">
       </div>
-      <div class="col-4">
+      <div class="col-4 col-form-label-lg">
         <label for="inputParvoDate" class="form-label">Date Received Parvo Vaccine</label>
         <input type="date" class="form-control" id="inputParvoDate">
       </div>
-      <div class="col-4">
+      <div class="col-4 col-form-label-lg">
         <label for="inputParvoDueDate" class="form-label">Date Parvo Vaccine Due</label>
         <input type="date" class="form-control" id="inputParvoDueDate">
       </div>
-      <div class="col-4">
+      <div class="col-4 col-form-label-lg">
         <label for="inputParvoDocument" class="form-label">Parvo Vaccine Documents</label>
         <input type="file" class="form-control" id="inputParvoDocument">
       </div>
-      <div class="col-12">
+      <div class="col-4 col-form-label-lg">
         <label for="inputMicrochip" class="form-label">Microchip Number</label>
         <input type="text" class="form-control" id="inputMicrochip">
       </div>
-      <div class="col-12 ">
+      <div class="col-12 col-form-label-lg ">
         <label for="inputNotes" class="form-label">Special Notes</label>
-        <textarea rows="4" cols="60" name="textare" class="form-control" id="inputNotes"></textarea>
+        <textarea rows="4" cols="60" name="textare" class="form-control" id="inputNotes"
+          placeholder="She has a special diet. He likes to try and escape"></textarea>
       </div>
-      <div class="col-12">
-        <label for="inputPicture" class="form-label">Picture</label>
-        <input type="image" class="form-control" id="inputPicture">
-        <!-- not sure how this one works -->
-      </div>
-      <div class="col-2">
+      <div class="col-4 col-form-label-lg">
         <button type="update" class="btn btn-primary">Update</button>
       </div>
-      <div class="col-2">
+      <div class="col-4 col-form-label-lg">
         <button type="addPet" class="btn btn-primary">Add A Pet</button>
+      </div>
+      <div class="col-4 col-form-label-lg">
+        <button type="reset" class="btn btn-primary">Clear Form</button>
       </div>
     </form>
   </div>
