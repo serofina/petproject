@@ -22,7 +22,7 @@ app.use(bodyParser.json());
 
 app.use(express.static("public"));
 
-app.use(htmlRoute);
+
 
 
 app.get('/', (req, res) => {
@@ -64,7 +64,7 @@ app.post('/api/mailto', (req, res) => {
 
 
 
-app.post("/api/newsletter", (req, res) => {
+app.post("/api/newsletterAddMember", (req, res) => {
 	let { name, email } = req.body;
 	console.log(name, email);
 
@@ -83,7 +83,7 @@ app.post("/api/newsletter", (req, res) => {
 	);
 });
 
-app.get("/api/newsletter", (req, res) => {
+app.get("/api/newsletterSubmit", (req, res) => {
 
 	connection.query("SELECT * FROM newsletter", (err, result) => {
 		if (err) {
@@ -94,7 +94,7 @@ app.get("/api/newsletter", (req, res) => {
 	);
 });
 
-
+app.use(htmlRoute);
 
 app.listen(3000, () => {
 	console.log("app in running on node 3000");

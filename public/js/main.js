@@ -194,7 +194,7 @@ if (form_newsletter) {
       redirect: 'follow'
     };
 
-    fetch("http://localhost:3000/api/newsletter", requestOptions)
+    fetch("http://localhost:3000/api/newsletterAddMember", requestOptions)
       .then(response => response.text())
       .then(result => {
         if (result) {
@@ -226,13 +226,27 @@ if (newsletter_email) {
     console.log('event', event);
 
 
-    const email = "mark@mark.com"
+    
     const subject = document.querySelector("#newsletter-subject").value;
     const message = document.querySelector("#newsletter-message").value;
 
+    var requestOptions = {
+      method: 'GET',
+      redirect: 'follow'
+    };
+    
+    fetch("http://localhost:3000/api/newsletterSubmit", requestOptions)
+      .then(response => response.json())
+      .then(body => {
+        body.result.forEach(element => {
+          const script = `Hello ${element.name}, \n\n Thanks you for subscribing to our newsletter \n\n ${message}`
+          sendMail(element.email, subject, script);
+        });
+      
+      })
+      .catch(error => console.log('error', error));
 
-    sendMail(email, subject, message);
-
+      newsletter_email.reset();      
   })
 }
 
