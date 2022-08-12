@@ -4,6 +4,7 @@ const path = require("path");
 const fs = require("fs");
 const mysql = require("mysql2");
 const nodemailer = require('nodemailer');
+const htmlRoute = require("./routes/htmlRoutes");
 
 
 const connection = mysql.createConnection({
@@ -20,6 +21,8 @@ app.use(express.json()); // allows for the server to accept json objs
 app.use(bodyParser.json());
 
 app.use(express.static("public"));
+
+app.use(htmlRoute);
 
 
 app.get('/', (req, res) => {
