@@ -168,7 +168,7 @@ if (form_email) {
 //begin add user to mailing list
 
 
-const form_newsletter = document.querySelector("#newsletter");
+const form_newsletter = document.querySelector("#newsletter-add");
 
 if (form_newsletter) {
   form_newsletter.addEventListener("submit", (event) => {
