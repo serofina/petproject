@@ -254,3 +254,57 @@ if (newsletter_email) {
 
 
 //end send news-letter emails
+
+//send a booking email request
+
+const bookingrequest = document.querySelector("#booking-form");
+
+if (bookingrequest) {
+  bookingrequest.addEventListener("submit", (event) => {
+    event.preventDefault();
+    
+    const name = document.querySelector("#booking-name").value;
+    const email = document.querySelector("#booking-email").value;
+    const date = document.querySelector("#booking-date").value;
+    const time = document.querySelector("#booking-time").value;
+    const service = document.querySelector("#booking-service").value;
+    
+    const bookingemail = "booking@pethotel.com";
+    const subject = `BOOKING REQUEST ${name} ${email} ${date} ${time} ${service};`
+    const message = `${name} would like to book ${service} on ${date} at ${time}. \n\n His contact is ${email}`;
+   
+    sendMail(bookingemail, subject, message);
+    alert("Your request has been set to our staff. If you have any questions, please contact us at 619-555-1234 or info@pet-hotel.com.")
+    bookingrequest.reset();      
+  })
+}
+
+// end send a booking request
+
+//start contact us 
+
+
+const contactus = document.querySelector("#contact-form");
+
+if (contactus) {
+  contactus.addEventListener("submit", (event) => {
+    event.preventDefault();
+    
+    const name = document.querySelector("#contact-name").value;
+    const email = document.querySelector("#contact-email").value;
+    const subjectcontact = document.querySelector("#contact-subject").value;
+    const messagecontact = document.querySelector("#contact-message").value;
+
+    
+    const contactemail = "contact@pethotel.com";
+    const subject = `CONTACT REQUEST ${name}, ${email}, ${subjectcontact};`
+    const message = `${name} would like more information on ${subjectcontact}\n\n ${messagecontact}. \n\n His contact is: \n${email}`;
+   
+    sendMail(contactemail, subject, message);
+    alert("Your request has been set to our staff. If you have any questions, please contact us at 619-555-1234.")
+    contactus.reset();      
+  })
+}
+//end contact us
+
+

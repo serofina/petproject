@@ -186,31 +186,31 @@
       <div class="row align-items-center">
         <div class="col-lg-5">
           <div class="bg-primary py-5 px-4 px-sm-5">
-            <form class="py-5">
+            <form class="py-5" id="booking-form" action = "submit">
               <div class="form-group">
-                <input type="text" class="form-control-booking border-0 p-4" placeholder="Your Name" required="required" />
+                <input type="text" id= "booking-name" class="form-control" class="form-control-booking border-0 p-4" placeholder="Your Name" required="required" />
               </div>
               <div class="form-group">
-                <input type="email" class="form-control-booking border-0 p-4" placeholder="Your Email" required="required" />
+                <input type="email" id= "booking-email" class="form-control-booking border-0 p-4" placeholder="Your Email" required="required" />
               </div>
               <div class="form-group">
                 <div class="date" id="date" data-target-input="nearest">
-                  <input type="text" class="form-control-booking border-0 p-4 datetimepicker-input"
+                  <input type="text" id= "booking-date"class="form-control-booking border-0 p-4 datetimepicker-input"
                     placeholder="Reservation Date" data-target="#date" data-toggle="datetimepicker" />
                 </div>
               </div>
               <div class="form-group">
                 <div class="time" id="time" data-target-input="nearest">
-                  <input type="text" class="form-control-booking border-0 p-4 datetimepicker-input"
+                  <input type="text" id= "booking-time" class="form-control-booking border-0 p-4 datetimepicker-input"
                     placeholder="Reservation Time" data-target="#time" data-toggle="datetimepicker" />
                 </div>
               </div>
               <div class="form-group">
-                <select class="custom-select border-0 px-4" style="height: 47px">
+                <select class="custom-select border-0 px-4" id= "booking-service"style="height: 47px">
                   <option selected>Select A Service</option>
-                  <option value="3">Dog Daycare</option>
-                  <option value="1">Dog Bording</option>
-                  <option value="2">Dog Grooming</option>
+                  <option value="Dog Daycare">Dog Daycare</option>
+                  <option value="Overnight Boarding">Dog Bording</option>
+                  <option value="Dog Grooming">Dog Grooming</option>
                   
                 </select>
               </div>
@@ -382,34 +382,11 @@
       <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
       <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
   
-      <!-- Contact Javascript File -->
-      <script src="mail/jqBootstrapValidation.min.js"></script>
-      <script src="mail/contact.js"></script>
+    
   
       <!-- Template Javascript -->
       <script src="js/main.js"></script>
     </body>
   </html>
 
-    <!-- Back to Top -->
-    <a href="#" class="btn btn-lg btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>
-
-
-    <!-- JavaScript Libraries -->
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
-    <script src="lib/easing/easing.min.js"></script>
-    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
-    <script src="lib/tempusdominus/js/moment.min.js"></script>
-    <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
-    <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
-
-    <!-- Contact Javascript File -->
-    <script src="mail/jqBootstrapValidation.min.js"></script>
-    <script src="mail/contact.js"></script>
-
-    <!-- Template Javascript -->
-    <script src="js/main.js"></script>
-</body>
-
-</html>
+ 
