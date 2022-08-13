@@ -34,6 +34,10 @@ app.get('/', (req, res) => {
 // });
 
 
+app.post('/api/signin', (req, res) => {
+	res.json('signin')
+})
+
 app.post('/api/mailto', (req, res) => {
 	let { email, subject, message } = req.body;
 	console.log(email, subject)
