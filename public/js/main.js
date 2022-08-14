@@ -113,31 +113,30 @@ if (timeNow >= openTimex && timeNow <= closeTimex) {
 
 // begin send email function
 
-const sendMail = ((email, subject, message) => {
+const sendMail = (email, subject, message) => {
   let myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
 
   console.log(email, subject);
 
   let raw = JSON.stringify({
-    "email": email,
-    "subject": subject,
-    "message": message
+    email: email,
+    subject: subject,
+    message: message,
   });
 
   let requestOptions = {
-    method: 'POST',
+    method: "POST",
     headers: myHeaders,
     body: raw,
-    redirect: 'follow'
+    redirect: "follow",
   };
 
   fetch("http://localhost:3000/api/mailto", requestOptions)
-    .then(response => response.text())
-    .then(result => console.log(result))
-    .catch(error => console.log('error', error));
-
-});
+    .then((response) => response.text())
+    .then((result) => console.log(result))
+    .catch((error) => console.log("error", error));
+};
 
 //end send email  function
 
@@ -148,25 +147,19 @@ if (form_email) {
   form_email.addEventListener("submit", (event) => {
     event.preventDefault();
 
-    console.log('event', event);
-
+    console.log("event", event);
 
     const email = document.querySelector("#email-address").value;
     const subject = document.querySelector("#email-subject").value;
     const message = document.querySelector("#email-message").value;
 
-
     sendMail(email, subject, message);
-
-  })
+  });
 }
-
 
 //end send email
 
-
 //begin add user to mailing list
-
 
 const form_newsletter = document.querySelector("#newsletter-add");
 
@@ -183,32 +176,31 @@ if (form_newsletter) {
     myHeaders.append("Content-Type", "application/json");
 
     let raw = JSON.stringify({
-      "name": name,
-      "email": email
+      name: name,
+      email: email,
     });
 
     let requestOptions = {
-      method: 'POST',
+      method: "POST",
       headers: myHeaders,
       body: raw,
-      redirect: 'follow'
+      redirect: "follow",
     };
 
     fetch("http://localhost:3000/api/newsletterAddMember", requestOptions)
-      .then(response => response.text())
-      .then(result => {
+      .then((response) => response.text())
+      .then((result) => {
         if (result) {
-          alert("Thank You for registering for our news letter.")
+          alert("Thank You for registering for our news letter.");
         } else {
-          alert("Sorry there was a problem, Please try again of contact our staff at email@pethotel.com.")
-        };
+          alert(
+            "Sorry there was a problem, Please try again of contact our staff at email@pethotel.com."
+          );
+        }
       })
-      .catch(error => console.log('error', error));
-
-
+      .catch((error) => console.log("error", error));
 
     form_newsletter.reset();
-
   });
 }
 
@@ -216,42 +208,35 @@ if (form_newsletter) {
 
 //send out news-letter emails
 
-
 const newsletter_email = document.querySelector("#send-newsletter");
 
 if (newsletter_email) {
   newsletter_email.addEventListener("submit", (event) => {
     event.preventDefault();
 
-    console.log('event', event);
+    console.log("event", event);
 
-
-    
     const subject = document.querySelector("#newsletter-subject").value;
     const message = document.querySelector("#newsletter-message").value;
 
     var requestOptions = {
-      method: 'GET',
-      redirect: 'follow'
+      method: "GET",
+      redirect: "follow",
     };
-    
+
     fetch("http://localhost:3000/api/newsletterSubmit", requestOptions)
-      .then(response => response.json())
-      .then(body => {
-        body.result.forEach(element => {
-          const script = `Hello ${element.name}, \n\n Thanks you for subscribing to our newsletter \n\n ${message}`
+      .then((response) => response.json())
+      .then((body) => {
+        body.result.forEach((element) => {
+          const script = `Hello ${element.name}, \n\n Thanks you for subscribing to our newsletter \n\n ${message}`;
           sendMail(element.email, subject, script);
         });
-      
       })
-      .catch(error => console.log('error', error));
+      .catch((error) => console.log("error", error));
 
-      newsletter_email.reset();      
-  })
+    newsletter_email.reset();
+  });
 }
-
-
-
 
 //end send news-letter emails
 
@@ -262,49 +247,51 @@ const bookingrequest = document.querySelector("#booking-form");
 if (bookingrequest) {
   bookingrequest.addEventListener("submit", (event) => {
     event.preventDefault();
-    
+
     const name = document.querySelector("#booking-name").value;
     const email = document.querySelector("#booking-email").value;
     const date = document.querySelector("#booking-date").value;
     const time = document.querySelector("#booking-time").value;
     const service = document.querySelector("#booking-service").value;
-    
+
     const bookingemail = "booking@pethotel.com";
-    const subject = `BOOKING REQUEST ${name} ${email} ${date} ${time} ${service};`
+    const subject = `BOOKING REQUEST ${name} ${email} ${date} ${time} ${service};`;
     const message = `${name} would like to book ${service} on ${date} at ${time}. \n\n His contact is ${email}`;
-   
+
     sendMail(bookingemail, subject, message);
-    alert("Your request has been set to our staff. If you have any questions, please contact us at 619-555-1234 or info@pet-hotel.com.")
-    bookingrequest.reset();      
-  })
+    alert(
+      "Your request has been set to our staff. If you have any questions, please contact us at 619-555-1234 or info@pet-hotel.com."
+    );
+    bookingrequest.reset();
+  });
 }
 
 // end send a booking request
 
-//start contact us 
-
+//start contact us
 
 const contactus = document.querySelector("#contact-form");
 
 if (contactus) {
   contactus.addEventListener("submit", (event) => {
     event.preventDefault();
-    
+
     const name = document.querySelector("#contact-name").value;
     const email = document.querySelector("#contact-email").value;
     const subjectcontact = document.querySelector("#contact-subject").value;
     const messagecontact = document.querySelector("#contact-message").value;
 
-    
     const contactemail = "contact@pethotel.com";
-    const subject = `CONTACT REQUEST ${name}, ${email}, ${subjectcontact};`
+    const subject = `CONTACT REQUEST ${name}, ${email}, ${subjectcontact};`;
     const message = `${name} would like more information on ${subjectcontact}\n\n ${messagecontact}. \n\n His contact is: \n${email}`;
-   
+
     sendMail(contactemail, subject, message);
-    alert("Your request has been set to our staff. If you have any questions, please contact us at 619-555-1234.")
-    contactus.reset();      
-  })
+    alert(
+      "Your request has been set to our staff. If you have any questions, please contact us at 619-555-1234."
+    );
+    contactus.reset();
+  });
 }
 //end contact us
 
-
+//
