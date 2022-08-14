@@ -39,8 +39,7 @@ app.use(express.json()); // allows for the server to accept json objs
 
 app.use(bodyParser.json());
 
-// Public Folder
-app.use(express.static("./public"));
+app.use(express.static("public"));
 
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "/public/index.html"));
@@ -49,6 +48,10 @@ app.get("/", (req, res) => {
 // app.get('/sendnewsletter.html', (req, res) => {
 // 	res.sendFile(path.join(__dirname, "/public/sendnewsletter.html"));
 // });
+
+app.post("/api/signin", (req, res) => {
+  res.json("signin");
+});
 
 app.post("/api/mailto", (req, res) => {
   let { email, subject, message } = req.body;
