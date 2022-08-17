@@ -7,12 +7,12 @@ const nodemailer = require('nodemailer');
 const htmlRoute = require("./routes/htmlRoutes");
 
 
-const connection = mysql.createConnection({
-	host: "localhost",
-	user: "root",
-	password: "password",
-	database: "pets_db",
-});
+// const connection = mysql.createConnection({
+// 	host: "localhost",
+// 	user: "root",
+// 	password: "password",
+// 	database: "pets_db",
+// });
 
 const app = express();
 app.use(express.urlencoded({ extended: false })); // server to accept strings and array from url
