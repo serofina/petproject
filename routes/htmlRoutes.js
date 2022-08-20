@@ -21,9 +21,9 @@ router.get("/contact", (req, res) => {
   res.sendFile(path.join(__dirname, "../public/contact.html"));
 });
 
-router.get("/customerform", (req, res) => {
-  res.sendFile(path.join(__dirname, "../public/customerform.html"));
-});
+// router.get("/customerform",authenticateToken, (req, res) => {
+//   res.sendFile(path.join(__dirname, "../public/customerform.html"));
+// });
 
 router.get("/faqs", (req, res) => {
   res.sendFile(path.join(__dirname, "../public/faqs.html"));
@@ -37,9 +37,9 @@ router.get("/login", (req, res) => {
   res.sendFile(path.join(__dirname, "../public/login.html"));
 });
 
-router.get("/petform", (req, res) => {
-  res.sendFile(path.join(__dirname, "../public/petform.html"));
-});
+// router.get("/petform", (req, res) => {
+//   res.sendFile(path.join(__dirname, "../public/petform.html"));
+// });
 
 router.get("/policy", (req, res) => {
   res.sendFile(path.join(__dirname, "../public/policy.html"));
@@ -68,5 +68,6 @@ router.get("/service", (req, res) => {
 router.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "../public/404.html"));
 });
+
 
 module.exports = router;

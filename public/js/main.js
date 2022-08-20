@@ -307,4 +307,50 @@ if (contactus) {
 }
 //end contact us
 
+//REGISTER
+const registration = document.querySelector("#registration-form");
 
+if (registration) {
+  registration.addEventListener("submit", (event) => {
+    event.preventDefault();
+    
+    const name = document.querySelector("#registration-fullname").value;
+    const email = document.querySelector("#registration-email").value;
+    const password = document.querySelector("#registration-pass").value;
+    const RPassword = document.querySelector("#registration-repeat").value;
+
+    let myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+
+      if(password===RPassword){
+      let raw = JSON.stringify({
+        "name": name,
+        "email": email,
+        "password": password
+      });
+
+      let requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: raw,
+        redirect: 'follow'
+      };
+
+      fetch("http://localhost:3000/api/register", requestOptions)
+        .then(response => response.json())
+        .then(result => {
+          if (result) {
+            console.log(result);
+            // window.location.replace("/login");
+          } else {
+            alert("Unable to register, Please try again of contact our staff at email@pethotel.com.")
+          };
+        })
+        .catch(error => console.log('error', error));
+        registration.reset(); 
+      }else{
+      alert("Passwords do not match") 
+      }
+  })
+}
+//END REGISTER
