@@ -111,6 +111,26 @@ if (timeNow >= openTimex && timeNow <= closeTimex) {
 }
 // End Opening Hours
 
+//go to customer form after sign in
+
+const customerHomePage = ()=> {
+
+  let myHeaders = new Headers();
+  const token = localStorage.getItem('accessToken');
+  console.log(token);
+  myHeaders.append("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IkpvbkBlbWFpbC5jb20iLCJpZHVzZXIiOjEyNSwiaWF0IjoxNjYwOTQ1OTk4fQ.SNedymfizAJ1hhJGtQwGsXsoM71yvozGN-lY7-WdG1g");
+
+  let requestOptions = {
+    method: 'GET',
+    headers: myHeaders,
+    redirect: 'follow'
+  };
+  
+  window.location.replace("http://localhost:3000/customerform", requestOptions);
+ 
+}
+//end go to customer form
+
 // begin send email function
 
 const sendMail = ((email, subject, message) => {
@@ -173,7 +193,7 @@ const form_newsletter = document.querySelector("#newsletter-add");
 if (form_newsletter) {
   form_newsletter.addEventListener("submit", (event) => {
     event.preventDefault();
-    //console.log(event);
+
 
     const name = document.querySelector("#newsletter-name").value;
     const email = document.querySelector("#newsletter-email").value;
@@ -230,7 +250,7 @@ if (newsletter_email) {
     const subject = document.querySelector("#newsletter-subject").value;
     const message = document.querySelector("#newsletter-message").value;
 
-    var requestOptions = {
+    let requestOptions = {
       method: 'GET',
       redirect: 'follow'
     };
@@ -322,35 +342,82 @@ if (registration) {
     let myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
 
-      if(password===RPassword){
-      let raw = JSON.stringify({
-        "name": name,
-        "email": email,
-        "password": password
-      });
+      if(password===RPassword && password.length>5){
+          let raw = JSON.stringify({
+            "name": name,
+            "email": email,
+            "password": password
+          });
 
-      let requestOptions = {
-        method: 'POST',
-        headers: myHeaders,
-        body: raw,
-        redirect: 'follow'
-      };
-
-      fetch("http://localhost:3000/api/register", requestOptions)
-        .then(response => response.json())
-        .then(result => {
-          if (result) {
-            console.log(result);
-            // window.location.replace("/login");
-          } else {
-            alert("Unable to register, Please try again of contact our staff at email@pethotel.com.")
+          let requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: raw,
+            redirect: 'follow'
           };
-        })
-        .catch(error => console.log('error', error));
-        registration.reset(); 
+
+          fetch("http://localhost:3000/api/register", requestOptions)
+            .then(response => response.json())
+            .then(result => {
+              console.log("********result",result);
+              if (result.success) {
+                window.location.replace("/login");
+              } else {
+                alert('Unable to create an account. Please try again.');
+              }
+            })
+            .catch(error => console.error('error', error));
+            registration.reset(); 
       }else{
-      alert("Passwords do not match") 
+          alert("Passwords do not match or needs to be longer than 5") 
       }
   })
 }
 //END REGISTER
+
+//sign in
+
+const sigin = document.querySelector("#login-form");
+if (sigin) {
+  sigin.addEventListener("submit", (event) => {
+    event.preventDefault();
+    
+    const email = document.querySelector("#signin-email").value;
+    const password = document.querySelector("#signin-password").value;
+
+    let myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+    
+    let raw = JSON.stringify({
+      "email": email,
+      "password": password
+    });
+    
+    let requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: raw,
+      redirect: 'follow'
+    };
+    
+    fetch("http://localhost:3000/api/signin", requestOptions)
+      .then(response => response.json())
+      .then(result => {
+        if (result.success) {
+          console.log(result.accessToken);
+          localStorage.setItem('accessToken', result.accessToken);
+          customerHomePage();
+         }else{
+          window.location = "/login";
+          alert("Login Not found!")
+        }
+      })
+      .catch(error => console.log('error', error));
+      // sigin.reset(); 
+    
+  })
+}
+
+
+
+//end sign in

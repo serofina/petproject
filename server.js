@@ -31,17 +31,12 @@ app.use(bodyParser.json());
 app.use(express.static("public"));
 
 
-app.get('/', (req, res) => {
-	res.sendFile(path.join(__dirname, "/public/index.html"));
-});
-
-
 app.post("/api/signin", async function (req, res) {
 	const { email, password} = req.body
 	connection.query(`SELECT * FROM users, login where users.iduser=login.iduser and email = ?`, [email],
 	async function(error, results, fields) {
 					if (error) {
-						res.status(401).json({ message: "Login not successful" })
+						res.status(401).json({success: false, message: "Login not successful" })
 					}else{
 						if(results.length > 0){
 							const isvalid = bcrypt.compareSync(password,results[0].hash);
@@ -51,12 +46,12 @@ app.post("/api/signin", async function (req, res) {
 											const iduser = results[0].iduser; 
 											const user ={name: username, email: email, iduser: iduser}
 											const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN)
-											res.json({ accessToken: accessToken});
+											res.json({ success: true, accessToken: accessToken});
 										}else{
-											res.status(500).json({ Error: 'Email and Pass do not match.'});
+											res.status(500).json({ success: false, Error: 'Email and Pass do not match.'});
 										}      
 						}else{
-							res.status(206).json({ message: "User not found" })
+							res.status(206).json({ success: false, message: "User not found" })
 						}
 				}
 			});
@@ -64,14 +59,14 @@ app.post("/api/signin", async function (req, res) {
 	
 	
 	
-	app.post("/api/register", (req, res) => {
+app.post("/api/register", (req, res) => {
 		try {
 			const { email, name, password } = req.body;
 			const hash = bcrypt.hashSync(password, saltRounds);
 	
 			connection.beginTransaction(function(err) {
 				if (err){
-					res.status(500).json({ Error: err });
+					res.status(500).json({ success: false,error: err });
 				} 
 				connection.query(
 					"INSERT INTO users (name, email) VALUES ( ? , ? )",
@@ -79,7 +74,7 @@ app.post("/api/signin", async function (req, res) {
 					function (err, result) {
 						if (err) {
 							return connection.rollback(function() {
-							res.status(500).json({ Error: err });	
+							res.status(500).json({ success: false,error: err });	
 						})
 					};
 						const iduser = result.insertId;
@@ -89,13 +84,13 @@ app.post("/api/signin", async function (req, res) {
 							function (e, r) {
 								if (e) {
 									return connection.rollback(function(){
-									res.status(500).json({ error: e });
+									res.status(500).json({ success: false,error: e });
 									});
 								}
 								connection.commit(function(err){
 									if(err){
 										return connection.rollback(function(){
-										res.status(500).json({ error: e });
+										res.status(500).json({ success: false,error: e });
 									});
 								}
 								res.json({ success: true });
@@ -106,7 +101,7 @@ app.post("/api/signin", async function (req, res) {
 			});
 		} catch (error) {
 			console.log("error", error);
-			res.status(500).json({ Error: error });
+			res.status(400).json({ Error: error });
 		}
 	});
 
@@ -196,10 +191,6 @@ function authenticateToken(req, res, next) {
 		next()
 	})
 }
-
-
-
-
 
 app.use(htmlRoute);
 
