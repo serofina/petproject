@@ -21,9 +21,9 @@ router.get("/contact", (req, res) => {
   res.sendFile(path.join(__dirname, "../public/contact.html"));
 });
 
-// router.get("/customerform",authenticateToken, (req, res) => {
-//   res.sendFile(path.join(__dirname, "../public/customerform.html"));
-// });
+router.get("/customerform", (req, res) => {
+  res.sendFile(path.join(__dirname, "../public/customerform.html"));
+});
 
 router.get("/faqs", (req, res) => {
   res.sendFile(path.join(__dirname, "../public/faqs.html"));

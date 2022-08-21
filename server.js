@@ -164,16 +164,35 @@ app.get("/api/newsletterSubmit", (req, res) => {
 
 app.get("/api/customerinformation",authenticateToken, (req, res) => {
 	let { iduser } = req.user
-	connection.query("SELECT * FROM customerinfo where iduser =?", [iduser], 
+	connection.query("SELECT * FROM users, customerinfo where users.iduser= customerinfo.iduser and users.iduser = ?;", [iduser], 
 	(err, result) => {
-		if (err) res.status(404).json({ error: 'invaild user' });
+		if (err) res.status(404).json({ error: 'No user' });
 		res.json(result);
 	});
 });
 
+app.put("/api/customerform" ,authenticateToken, (req, res) => {
+	let { iduser } = req.user
+	let { firstName, lastName, phone, address, address2, city, state, zip, emergencyContact, emergencyPhone} = req.body;
+	console.log(firstName, lastName);
 
-app.get("/customerform",authenticateToken, (req, res) => {
-  res.sendFile(path.join(__dirname, "./public/customerform.html"));
+	connection.query(
+		`INSERT INTO customerinfo ( iduser, firstName, lastName, phone, address, address2, city, state, zip, emergencyContact, emergencyPhone ) `+
+		`VALUES ('${iduser}','${firstName}', '${lastName}', '${phone}', '${address}', '${address2}', '${city}', '${state}', '${zip}', '${emergencyContact}', '${emergencyPhone}')`+
+		`ON DUPLICATE KEY UPDATE firstName = '${firstName}', lastName = '${lastName}', phone = '${phone}', address = '${address}', address2 = '${address2}', city = '${city}', state = '${state}', zip = '${zip}', emergencyContact = '${emergencyContact}', emergencyPhone = '${emergencyPhone}';`,
+		(e) => {
+			if (e) {
+				res.status(404).json({ error: e });
+			}
+			res.json({
+				success: true,
+			});
+		}
+	);
+})
+
+app.get("/auth",authenticateToken, (req, res) => {
+	res.json({authenticated: true});
 });
 
 app.get("/petform",authenticateToken,(req, res) => {
@@ -184,13 +203,47 @@ app.get("/petform",authenticateToken,(req, res) => {
 function authenticateToken(req, res, next) {
 	const authHeader = req.headers['authorization'];
 	const token = authHeader && authHeader.split(' ')[1];
+
 	if (token===null) return res.sendStatus(401)
+
 	jwt.verify(token, process.env.ACCESS_TOKEN, (err, user) => {
 		if (err) return res.sendStatus(403);
 		req.user = user
 		next()
 	})
 }
+
+// app.put("/api/customerform/:id", (req, res) => {
+// 	const { id } = req.params;
+// 	let { firstName, lastName, phone, address, address2, city, state, emergencyContact, emergencyPhone} = req.body;
+// 	console.log(firstName, lastName);
+
+// 	connection.query(
+// 		"INSERT INTO customerinfo (userid, firstName, lastName, phone, address, address2, city, state, emergencyContact, emergencyPhone) VALUES ( ?,?,?,?,?,?,?,?,?,? )",
+// 		[id, firstName, lastName, phone, address, address2, city, state, emergencyContact, emergencyPhone],
+// 		(e) => {
+// 			if (e) {
+// 				res.status(404).json({ error: e });
+// 			}
+// 			res.json({
+// 				success: true,
+// 			});
+// 		}
+// 	);
+// })
+
+
+// app.get("/api/customerform/:id", (req, res) => {
+// 		const { id } = req.params;
+// 		connection.query(`SELECT * FROM pets_db.customerinfo where userid = (${id});`,
+// 		function(err, result) {
+// 			if(!err) {
+// 				res.status(404).json({ error: err });
+// 			} else {
+// 			console.log(err);
+// 			}
+// 	});
+// })
 
 app.use(htmlRoute);
 
