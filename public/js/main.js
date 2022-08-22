@@ -436,21 +436,8 @@ if (sigin) {
 const customerform = document.querySelector("#customerForm");
 
 if (customerform) {
-  customerform.addEventListener('load', (event) => {
-    event.preventDefault();
-    console.log('loaded');
-
-    //create all the varaibles incase they don't come back from the server
-  const firstName = document.querySelector("#inputFirstName").value;
-  const lastName = document.querySelector("#inputLastName").value;
-  const phone = document.querySelector("#inputTelephoneNumber").value;
-  const email= document.querySelector("#inputEmail").value;
-  const address = document.querySelector("#inputAddress").value;
-  const address2 = document.querySelector("inputAddress2").value;
-  const city = document.querySelector("#sinputCity").value;
-  const state = document.querySelector("#signin-password").value;
-  const emergencyContact = document.querySelector("#signin-email").value;
-  const emergencyPhone = document.querySelector("#signin-password").value;
+  //customerform.addEventListener('DOMContentLoaded', (event) => {
+    // event.preventDefault();
 
     
   const token = (localStorage.getItem('accessToken'));
@@ -467,13 +454,23 @@ if (customerform) {
   fetch("api/customerinformation", requestOptions)
     .then(response => response.json())
     .then(result => {
-        firstName = result.firstName;
-        console.log(firstName);
+      console.log(result);
+      document.querySelector("#inputFirstName").value = result[0].firstName;
+      document.querySelector("#inputLastName").value = result[0].lastName; 
+      document.querySelector("#inputTelephoneNumber").value = result[0].phone;
+      document.querySelector("#inputEmail").value = result[0].email; 
+      document.querySelector("#inputAddress").value= result[0].address;
+      document.querySelector("#inputAddress2").value = result[0].address2;
+      document.querySelector("#inputCity").value = result[0].city;
+      document.querySelector("#inputState").value = result[0].state;
+      document.querySelector("#inputZip").value= result[0].zip;
+      document.querySelector("#inputEmergencyContact").value = result[0].emergencyContact;
+      document.querySelector("#inputEmergencyTelephoneNumber").value = result[0].emergencyPhone;  
     })
     .catch(error => console.log('error', error));
         // customerform.reset(); 
       
-    })
+    // })
 }
 
 
@@ -531,10 +528,10 @@ if (customerform) {
       fetch("/api/customerform", requestOptions)
         .then(response => response.json())
         .then(result => {
-          if (result.success) alert("Thank yu for updating your information")
+          if (result.success) alert("Thank you for updating your information")
         })
         .catch(error => console.log('error', error));
-      // customerform.reset(); 
+      customerform.reload(); 
       
     })
 }
