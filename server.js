@@ -98,6 +98,62 @@ app.get("/api/newsletterSubmit", (req, res) => {
 	);
 });
 
+app.post("/customer_signup", (req, res) => {
+	let {first_name, last_name, email, 
+		phone, address1, address2, city, state, zip, 
+		emergency_contact, emergency_number} = req.body
+	connection.query(
+			`insert into customer 
+			(
+				first_name,
+				last_name,
+				email,
+				phone,
+				address1,
+				address2,
+				city,
+				address_state,
+				zip,
+				emergency_contact,
+				emergency_phone
+			)
+			values 
+			(
+				?,
+				?,
+				?,
+				?,
+				?,
+				?,
+				?,
+				?,
+				?,
+				?,
+				?
+			);`,
+			[first_name,
+			last_name,
+			email,
+			phone,
+			address1,
+			address2,
+			city,
+			state,
+			zip,
+			emergency_contact,
+			emergency_number],
+			(err) => {
+				if (err) {
+					res.status(404).json({ error: err });
+				}
+				res.redirect('/confirmation')
+				/*res.json({
+					success: true,
+				});*/
+			}
+		);
+})
+
 app.use(htmlRoute);
 
 app.listen(3000, () => {
