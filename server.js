@@ -59,51 +59,40 @@ app.post("/api/signin", async function (req, res) {
 	
 	
 	
-app.post("/api/register", (req, res) => {
-		try {
-			const { email, name, password } = req.body;
-			const hash = bcrypt.hashSync(password, saltRounds);
-	
-			connection.beginTransaction(function(err) {
-				if (err){
-					res.status(500).json({ success: false,error: err });
-				} 
-				connection.query(
-					"INSERT INTO users (name, email) VALUES ( ? , ? )",
-					[name, email],
-					function (err, result) {
-						if (err) {
-							return connection.rollback(function() {
-							res.status(500).json({ success: false,error: err });	
-						})
-					};
-						const iduser = result.insertId;
-						connection.query(
-							"INSERT INTO login (hash, iduser) VALUES ( ? , ? )",
-							[hash, iduser],
-							function (e, r) {
-								if (e) {
-									return connection.rollback(function(){
-									res.status(500).json({ success: false,error: e });
-									});
-								}
-								connection.commit(function(err){
-									if(err){
-										return connection.rollback(function(){
-										res.status(500).json({ success: false,error: e });
-									});
-								}
-								res.json({ success: true });
-								});
-					});
-					}
-				);
-			});
-		} catch (error) {
-			console.log("error", error);
-			res.status(400).json({ Error: error });
-		}
-	});
+	app.post("/api/register", (req, res) => {
+
+    const { email, name, password } = req.body;
+    const hash = bcrypt.hashSync(password, saltRounds);
+      connection.query(
+      `call addUser ("${name}", "${email}", "${hash}")`,
+        function (err, result) {
+          console.log(result);
+          if(result[0][0].hasOwnProperty("fail")) {
+						res.status(500).json({ success: false, error: err });
+          }else{
+            res.json({ success: true });
+          }
+      });
+   })
+      
+
+   app.put("/api/customerform" ,authenticateToken, (req, res) => {
+		let { iduser } = req.user
+    let { firstName, lastName, phone, address, address2, city, state, zip, emergencyContact, emergencyPhone} = req.body;
+
+    connection.query(
+    `UPDATE customerinfo SET firstName = "${firstName}", lastName ="${lastName}", 
+    phone = "${phone}", address = "${address}", address2 = "${address2}", city = "${city}", 
+    state = "${state}", zip = "${zip}", emergencyContact = "${emergencyContact}", emergencyphone = "${emergencyPhone}"
+    WHERE (iduser = '${iduser}');`,
+     function (err, result) {
+        if(result.affectedRows === 0|| err) {
+          res.status(500).json({ success: false, error: err });
+        }else{
+          res.json({ success: true });
+        }
+      });
+  })
 
 
 app.post('/api/mailto', (req, res) => {
@@ -171,25 +160,6 @@ app.get("/api/customerinformation",authenticateToken, (req, res) => {
 	});
 });
 
-app.put("/api/customerform" ,authenticateToken, (req, res) => {
-	let { iduser } = req.user
-	let { firstName, lastName, phone, address, address2, city, state, zip, emergencyContact, emergencyPhone} = req.body;
-	console.log(firstName, lastName);
-
-	connection.query(
-		`INSERT INTO customerinfo ( iduser, firstName, lastName, phone, address, address2, city, state, zip, emergencyContact, emergencyPhone ) `+
-		`VALUES ('${iduser}','${firstName}', '${lastName}', '${phone}', '${address}', '${address2}', '${city}', '${state}', '${zip}', '${emergencyContact}', '${emergencyPhone}')`+
-		`ON DUPLICATE KEY UPDATE firstName = '${firstName}', lastName = '${lastName}', phone = '${phone}', address = '${address}', address2 = '${address2}', city = '${city}', state = '${state}', zip = '${zip}', emergencyContact = '${emergencyContact}', emergencyPhone = '${emergencyPhone}';`,
-		(e) => {
-			if (e) {
-				res.status(404).json({ error: e });
-			}
-			res.json({
-				success: true,
-			});
-		}
-	);
-})
 
 app.get("/auth",authenticateToken, (req, res) => {
 	res.json({authenticated: true});
@@ -212,38 +182,6 @@ function authenticateToken(req, res, next) {
 		next()
 	})
 }
-
-// app.put("/api/customerform/:id", (req, res) => {
-// 	const { id } = req.params;
-// 	let { firstName, lastName, phone, address, address2, city, state, emergencyContact, emergencyPhone} = req.body;
-// 	console.log(firstName, lastName);
-
-// 	connection.query(
-// 		"INSERT INTO customerinfo (userid, firstName, lastName, phone, address, address2, city, state, emergencyContact, emergencyPhone) VALUES ( ?,?,?,?,?,?,?,?,?,? )",
-// 		[id, firstName, lastName, phone, address, address2, city, state, emergencyContact, emergencyPhone],
-// 		(e) => {
-// 			if (e) {
-// 				res.status(404).json({ error: e });
-// 			}
-// 			res.json({
-// 				success: true,
-// 			});
-// 		}
-// 	);
-// })
-
-
-// app.get("/api/customerform/:id", (req, res) => {
-// 		const { id } = req.params;
-// 		connection.query(`SELECT * FROM pets_db.customerinfo where userid = (${id});`,
-// 		function(err, result) {
-// 			if(!err) {
-// 				res.status(404).json({ error: err });
-// 			} else {
-// 			console.log(err);
-// 			}
-// 	});
-// })
 
 app.use(htmlRoute);
 
