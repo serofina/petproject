@@ -2,17 +2,20 @@ const express = require("express");
 const htmlRoute = require("./routes/htmlRoutes");
 const apiRoutes = require("./routes/apiRoutes.js");
 
-//create express server instance
+require("dotenv").config();
+
+const PORT = process.env.PORT || 3000;
+
 const app = express();
 
-app.use(express.json()); // allows for the server to accept json objs
-app.use(express.urlencoded({ extended: true })); // server to accept strings and array from url
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 app.use(express.static("public"));
 
 app.use(apiRoutes);
 app.use(htmlRoute);
 
-app.listen(3000, () => {
-  console.log("App in running on node 3000");
+app.listen(PORT, () => {
+  console.log(`app in running on node ${PORT}`);
 });
