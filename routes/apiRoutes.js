@@ -53,7 +53,9 @@ router.post("/api/signin", (req, res) => {
             const email = results[0].email;
             const iduser = results[0].iduser;
             const user = { name: username, email: email, iduser: iduser };
-            const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN);
+            const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN, {
+              expiresIn: "15m",
+            });
             res.json({ success: true, accessToken: accessToken });
           } else {
             res
