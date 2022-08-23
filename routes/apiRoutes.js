@@ -3,6 +3,8 @@ const nodemailer = require("nodemailer");
 const { createImageUpload } = require("../utils/cloudinary");
 const connection = require("../db/connection");
 const { authenticateToken } = require("../utils/auth");
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 router.post("/api/pet-form", authenticateToken, (req, res) => {
   connection.query("INSERT INTO pets SET ?", req.body, (err, result) => {
@@ -66,7 +68,7 @@ router.post("/api/signin", (req, res) => {
   );
 });
 
-router.post("/api/mailto", authenticateToken, (req, res) => {
+router.post("/api/mailto", (req, res) => {
   let { email, subject, message } = req.body;
   console.log(email, subject);
   const transporter = nodemailer.createTransport({
@@ -121,11 +123,12 @@ router.get("/api/newsletterSubmit", authenticateToken, (req, res) => {
 
 router.post("/api/register", (req, res) => {
   const { email, name, password } = req.body;
-  const hash = bcrypt.hashSync(password, saltRounds);
+  console.log(req.body);
+  const hash = bcrypt.hashSync(password, 10);
   connection.query(
     `call addUser ("${name}", "${email}", "${hash}")`,
     function (err, result) {
-      console.log(result);
+      console.log("****", result);
       if (result[0][0].hasOwnProperty("fail")) {
         res.status(500).json({ success: false, error: err });
       } else {

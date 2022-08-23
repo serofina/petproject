@@ -133,7 +133,7 @@ const sendMail = (email, subject, message) => {
   };
 
   fetch("/api/mailto", requestOptions)
-    .then((response) => response.json())
+    .then((response) => response.text())
     .then((result) => console.log(result))
     .catch((error) => console.log("error", error));
 };
@@ -187,7 +187,7 @@ if (form_newsletter) {
     };
 
     fetch("/api/newsletterAddMember", requestOptions)
-      .then((response) => response.json())
+      .then((response) => response.text())
       .then((result) => {
         if (result) {
           alert("Thank You for registering for our news letter.");
@@ -325,6 +325,7 @@ if (registration) {
       fetch("/api/register", requestOptions)
         .then((response) => response.json())
         .then((result) => {
+          console.log("********result", result);
           if (result.success) {
             window.location.replace("/login");
           } else {
@@ -368,7 +369,6 @@ const customerHomePage = () => {
 //sign in
 
 const sigin = document.querySelector("#login-form");
-
 if (sigin) {
   sigin.addEventListener("submit", (event) => {
     event.preventDefault();
@@ -404,6 +404,7 @@ if (sigin) {
         }
       })
       .catch((error) => console.log("error", error));
+    // sigin.reset();
   });
 }
 
@@ -447,11 +448,16 @@ if (customerform) {
         result[0].emergencyPhone;
     })
     .catch((error) => console.log("error", error));
+  // customerform.reset();
 
-  //end update customer information
+  // })
+}
 
-  //get customer information DOES not trigger event
+//end update customer information
 
+//get customer information DOES not trigger event
+
+if (customerform) {
   customerform.addEventListener("submit", (event) => {
     event.preventDefault();
     console.log("loaded");
@@ -509,4 +515,5 @@ if (customerform) {
     customerform.reload();
   });
 }
+
 //end update customer information
