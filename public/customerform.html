@@ -104,9 +104,9 @@
       </button>
       <div class="collapse navbar-collapse justify-content-between px-3" id="navbarCollapse">
         <div class="navbar-nav mr-auto py-0">
-          <a href="customerform.html" class="nav-item nav-link active">Customer Info</a>
-          <a href="petform.html" class="nav-item nav-link">Pet Info</a>
-          <a href="booking.html" class="nav-item nav-link">Make a reservation</a>
+          <a href="/customerform" class="nav-item nav-link active">Customer Info</a>
+          <a href="/petform" class="nav-item nav-link">Pet Info</a>
+          <a href="/booking" class="nav-item nav-link">Make a reservation</a>
         </div>
       </div>
     </nav>
@@ -115,15 +115,15 @@
   <!-- second Nav Bar end -->
 
   <!-- customer form start -->
-  <div id="customerForm" class="customer-form" action="submit DOMContentLoaded">
+  <div id="customerForm" class="customer-form">
     <form class="row g-3 bg-light pt-5 pb-4">
       <div class="col-md-6">
-        <label for="inputFirstName" class="form-label">First Name</label>
-        <input type="text" class="form-control" id="inputFirstName" autocomplete="given-name">
+        <label for="inputfirstName" class="form-label">First Name</label>
+        <input type="text" class="form-control" id="inputFirstName">
       </div>
       <div class="col-md-6">
         <label for="inputLastName" class="form-label">Last Name</label>
-        <input type="text" class="form-control" id="inputLastName" autocomplete="family-name">
+        <input type="text" class="form-control" id="inputLastName">
       </div>
       <div class="col-md-6">
         <label for="inputEmail4" class="form-label">Email</label>
@@ -135,15 +135,15 @@
       </div>
       <div class="col-8">
         <label for="inputAddress" class="form-label">Address</label>
-        <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St" autocomplete="shipping address-line1">
+        <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
       </div>
       <div class="col-8">
         <label for="inputAddress2" class="form-label">Address 2</label>
-        <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor" autocomplete="shipping address-line2">
+        <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
       </div>
       <div class="col-md-6">
         <label for="inputCity" class="form-label">City</label>
-        <input type="text" class="form-control" id="inputCity" autocomplete="shipping address-level2">
+        <input type="text" class="form-control" id="inputCity">
       </div>
       <div class="col-md-2">
         <label for="inputState" class="form-label">State</label>
@@ -206,7 +206,7 @@
       </div>
       <div class="col-md-2">
         <label for="inputZip" class="form-label">Zip</label>
-        <input type="text" class="form-control" id="inputZip" autocomplete="shipping postal-code">
+        <input type="text" class="form-control" id="inputZip">
       </div>
       <div class="col-md-4">
         <label for="inputEmergencyContact" class="form-label">Emergency Contact</label>
@@ -328,14 +328,14 @@
   <script src="js/main.js"></script>
 
   <!-- Address Autofill helper -->
-<script id="search-js" src="https://api.mapbox.com/search-js/v1.0.0-beta.13/web.js"></script>
+  <script id="search-js" src="https://api.mapbox.com/search-js/v1.0.0-beta.13/web.js"></script>
   
-<script>
-  mapboxsearch.autofill({
-    accessToken: 'pk.eyJ1IjoibXJleWVzNDEiLCJhIjoiY2w2emZpbDV4MDN3MTN2cGIyYjlmbm0xdSJ9.29t85IWD6S36FtM5elA63g'
-  })
-</script>
-
+  <script>
+    mapboxsearch.autofill({
+      accessToken: 'pk.eyJ1IjoibXJleWVzNDEiLCJhIjoiY2w2emZpbDV4MDN3MTN2cGIyYjlmbm0xdSJ9.29t85IWD6S36FtM5elA63g'
+    })
+  </script>
+  
 </body>
 
 </html>
