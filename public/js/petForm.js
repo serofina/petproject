@@ -65,8 +65,11 @@ if (petForm) {
 
     console.log(payload);
 
+    const token = localStorage.getItem("accessToken");
+
     const headers = new Headers();
     headers.append("Content-Type", "application/json");
+    headers.append("Authorization", `Bearer ${token}`);
 
     const requestOptions = {
       method: "POST",
@@ -84,10 +87,16 @@ if (petForm) {
 }
 
 const uploadToCloudinary = async (file, field, microchip) => {
+  const token = localStorage.getItem("accessToken");
+
+  let myHeaders = new Headers();
+  myHeaders.append("Authorization", `Bearer ${token}`);
+
   // get signature
   const signatureRes = await fetch("/api/cloudSignature", {
     method: "GET",
     redirect: "follow",
+    headers: myHeaders,
   });
 
   const { timestamp, signature, key, cloudName } = await signatureRes.json();
