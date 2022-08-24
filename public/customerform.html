@@ -104,9 +104,9 @@
       </button>
       <div class="collapse navbar-collapse justify-content-between px-3" id="navbarCollapse">
         <div class="navbar-nav mr-auto py-0">
-          <a href="customerform.html" class="nav-item nav-link active">Customer Info</a>
-          <a href="petform.html" class="nav-item nav-link">Pet Info</a>
-          <a href="booking.html" class="nav-item nav-link">Make a reservation</a>
+          <a href="/customerform" class="nav-item nav-link active">Customer Info</a>
+          <a href="/petform" class="nav-item nav-link">Pet Info</a>
+          <a href="/booking" class="nav-item nav-link">Make a reservation</a>
         </div>
       </div>
     </nav>
@@ -127,7 +127,7 @@
       </div>
       <div class="col-md-6">
         <label for="inputEmail4" class="form-label">Email</label>
-        <input type="email" class="form-control" id="inputEmail4">
+        <input type="email" class="form-control" id="inputEmail">
       </div>
       <div class="col-md-6">
         <label for="inputNumber" class="form-label">Phone Number</label>
@@ -326,6 +326,16 @@
 
   <!-- Template Javascript -->
   <script src="js/main.js"></script>
+
+  <!-- Address Autofill helper -->
+  <script id="search-js" src="https://api.mapbox.com/search-js/v1.0.0-beta.13/web.js"></script>
+  
+  <script>
+    mapboxsearch.autofill({
+      accessToken: 'pk.eyJ1IjoibXJleWVzNDEiLCJhIjoiY2w2emZpbDV4MDN3MTN2cGIyYjlmbm0xdSJ9.29t85IWD6S36FtM5elA63g'
+    })
+  </script>
+  
 </body>
 
 </html>
