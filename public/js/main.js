@@ -307,4 +307,245 @@ if (contactus) {
 }
 //end contact us
 
+//REGISTER
+const registration = document.querySelector("#registration-form");
+
+if (registration) {
+  registration.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    const name = document.querySelector("#registration-fullname").value;
+    const email = document.querySelector("#registration-email").value;
+    const password = document.querySelector("#registration-pass").value;
+    const RPassword = document.querySelector("#registration-repeat").value;
+
+    let myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    function validate(password) {
+      var minMaxLength = /^[\s\S]{8,32}$/,
+          upper = /[A-Z]/,
+          lower = /[a-z]/,
+          number = /[0-9]/,
+          special = /[ !"#$%&'()*+,\-./:;<=>?@[\\\]^_`{|}~]/;
+    
+      if (minMaxLength.test(password) &&
+          upper.test(password) &&
+          lower.test(password) &&
+          number.test(password) &&
+          special.test(password)
+      ) {
+          return true;
+      }
+    
+      return false;
+  }
+
+    if (password === RPassword && validate(password) === true) {
+      let raw = JSON.stringify({
+        name: name,
+        email: email,
+        password: password,
+      });
+
+      let requestOptions = {
+        method: "POST",
+        headers: myHeaders,
+        body: raw,
+        redirect: "follow",
+      };
+
+      fetch("/api/register", requestOptions)
+        .then((response) => response.json())
+        .then((result) => {
+          console.log("********result", result);
+          if (result.success) {
+            window.location.replace("/login");
+          } else {
+            alert("Unable to create an account. Please try again.");
+          }
+        })
+        .catch((error) => console.error("error", error));
+      registration.reset();
+    } else {
+      alert("Passwords do not match or do not meet the requirments listed");
+    }
+  });
+}
+//END REGISTER
+
+//go to customer form after sign in
+
+const customerHomePage = () => {
+  const token = localStorage.getItem("accessToken");
+  // console.log(token);
+
+  let myHeaders = new Headers();
+  myHeaders.append("Authorization", `Bearer ${token}`);
+  let requestOptions = {
+    method: "GET",
+    headers: myHeaders,
+    redirect: "follow",
+  };
+
+  fetch("/auth", requestOptions)
+    .then((response) => response.json())
+    .then((result) => {
+      if (result.authenticated) {
+        window.location.pathname = "/customerform";
+      }
+    })
+    .catch((error) => console.log("error", error));
+};
+//end go to customer form
+
+//sign in
+
+const sigin = document.querySelector("#login-form");
+if (sigin) {
+  sigin.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    const email = document.querySelector("#signin-email").value;
+    const password = document.querySelector("#signin-password").value;
+
+    let myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    let raw = JSON.stringify({
+      email: email,
+      password: password,
+    });
+
+    let requestOptions = {
+      method: "POST",
+      headers: myHeaders,
+      body: raw,
+      redirect: "follow",
+    };
+
+    fetch("/api/signin", requestOptions)
+      .then((response) => response.json())
+      .then((result) => {
+        if (result.success) {
+          console.log(result.accessToken);
+          localStorage.setItem("accessToken", result.accessToken);
+          customerHomePage();
+        } else {
+          window.location = "/login";
+          alert("Login Not found!");
+        }
+      })
+      .catch((error) => console.log("error", error));
+    // sigin.reset();
+  });
+}
+
+//end sign in
+
+//get customer information DOES not trigger event
+
+const customerform = document.querySelector("#customerForm");
+
+if (customerform) {
+  //customerform.addEventListener('DOMContentLoaded', (event) => {
+  // event.preventDefault();
+
+  const token = localStorage.getItem("accessToken");
+
+  let myHeaders = new Headers();
+  myHeaders.append("Authorization", `Bearer ${token}`);
+
+  let requestOptions = {
+    method: "GET",
+    headers: myHeaders,
+    redirect: "follow",
+  };
+
+  fetch("api/customerinformation", requestOptions)
+    .then((response) => response.json())
+    .then((result) => {
+      console.log(result);
+      document.querySelector("#inputFirstName").value = result[0].firstName;
+      document.querySelector("#inputLastName").value = result[0].lastName;
+      document.querySelector("#inputTelephoneNumber").value = result[0].phone;
+      document.querySelector("#inputEmail").value = result[0].email;
+      document.querySelector("#inputAddress").value = result[0].address;
+      document.querySelector("#inputAddress2").value = result[0].address2;
+      document.querySelector("#inputCity").value = result[0].city;
+      document.querySelector("#inputState").value = result[0].state;
+      document.querySelector("#inputZip").value = result[0].zip;
+      document.querySelector("#inputEmergencyContact").value =
+        result[0].emergencyContact;
+      document.querySelector("#inputEmergencyTelephoneNumber").value =
+        result[0].emergencyPhone;
+    })
+    .catch((error) => console.log("error", error));
+  // customerform.reset();
+
+  // })
+}
+
+//end update customer information
+
+//get customer information DOES not trigger event
+
+if (customerform) {
+  customerform.addEventListener("submit", (event) => {
+    event.preventDefault();
+    console.log("loaded");
+
+    //create all the varaibles incase they don't come back from the server
+
+    const firstName = document.querySelector("#inputFirstName").value;
+    const lastName = document.querySelector("#inputLastName").value;
+    const phone = document.querySelector("#inputTelephoneNumber").value;
+    const email = document.querySelector("#inputEmail").value;
+    const address = document.querySelector("#inputAddress").value;
+    const address2 = document.querySelector("#inputAddress2").value;
+    const city = document.querySelector("#inputCity").value;
+    const state = document.querySelector("#inputState").value;
+    const zip = document.querySelector("#inputZip").value;
+    const emergencyContact = document.querySelector(
+      "#inputEmergencyContact"
+    ).value;
+    const emergencyPhone = document.querySelector(
+      "#inputEmergencyTelephoneNumber"
+    ).value;
+
+    const token = localStorage.getItem("accessToken");
+
+    let myHeaders = new Headers();
+    myHeaders.append("Authorization", `Bearer ${token}`);
+    myHeaders.append("Content-Type", "application/json");
+
+    let raw = JSON.stringify({
+      firstName: firstName,
+      lastName: lastName,
+      phone: phone,
+      address: address,
+      address2: address2,
+      city: city,
+      state: state,
+      zip: zip,
+      emergencyContact: emergencyContact,
+      emergencyPhone: emergencyPhone,
+    });
+
+    let requestOptions = {
+      method: "PUT",
+      headers: myHeaders,
+      body: raw,
+      redirect: "follow",
+    };
+
+    fetch("/api/customerform", requestOptions)
+      .then((response) => response.json())
+      .then((result) => {
+        if (result.success) alert("Thank you for updating your information");
+      })
+      .catch((error) => console.log("error", error));
+    customerform.reload();
+  });
+}
 
