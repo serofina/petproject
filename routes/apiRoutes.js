@@ -125,6 +125,7 @@ router.get("/api/newsletterSubmit", authenticateToken, (req, res) => {
 
 router.post("/api/register", (req, res) => {
   const { email, name, password } = req.body;
+
   console.log(req.body);
   const hash = bcrypt.hashSync(password, 10);
   connection.query(

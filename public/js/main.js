@@ -308,7 +308,28 @@ if (registration) {
     let myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
-    if (password === RPassword && password.length > 5) {
+
+    function validate(password) {
+      var minMaxLength = /^[\s\S]{8,32}$/,
+          upper = /[A-Z]/,
+          lower = /[a-z]/,
+          number = /[0-9]/,
+          special = /[ !"#$%&'()*+,\-./:;<=>?@[\\\]^_`{|}~]/;
+    
+      if (minMaxLength.test(password) &&
+          upper.test(password) &&
+          lower.test(password) &&
+          number.test(password) &&
+          special.test(password)
+      ) {
+          return true;
+      }
+    
+      return false;
+  }
+
+    if (password === RPassword && validate(password) === true) {
+
       let raw = JSON.stringify({
         name: name,
         email: email,
@@ -335,7 +356,9 @@ if (registration) {
         .catch((error) => console.error("error", error));
       registration.reset();
     } else {
-      alert("Passwords do not match or needs to be longer than 5");
+
+      alert("Passwords do not match or do not meet the requirments listed");
+
     }
   });
 }
