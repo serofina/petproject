@@ -41,6 +41,10 @@ router.get("/petform", (req, res) => {
   res.sendFile(path.join(__dirname, "../public/petform.html"));
 });
 
+router.get("/petprofile", (req, res) => {
+  res.sendFile(path.join(__dirname, "../public/petprofile.html"));
+});
+
 router.get("/policy", (req, res) => {
   res.sendFile(path.join(__dirname, "../public/policy.html"));
 });

@@ -5,6 +5,16 @@ const connection = require("../db/connection");
 const { authenticateToken } = require("../utils/auth");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const jwtdecode = require("jwt-decode");
+
+router.post("/api/decode", authenticateToken, (req, res) => {
+  const decoded = jwtdecode(req.body.token);
+
+  res.json({
+    success: true,
+    decoded,
+  });
+});
 
 router.post("/api/pet-form", authenticateToken, (req, res) => {
   connection.query("INSERT INTO pets SET ?", req.body, (err, result) => {
@@ -17,16 +27,20 @@ router.post("/api/pet-form", authenticateToken, (req, res) => {
   });
 });
 
-router.get("/api/pet-form", authenticateToken, (req, res) => {
-  connection.query("SELECT * FROM pets", (err, result) => {
-    if (err) {
-      res.status(500).json({ error: err });
+router.get("/api/pet-form/:userId", authenticateToken, (req, res) => {
+  connection.query(
+    "SELECT * FROM pets WHERE userId = ?",
+    [req.params.userId],
+    (err, result) => {
+      if (err) {
+        res.status(500).json({ error: err });
+      }
+      res.json({
+        success: true,
+        data: result,
+      });
     }
-    res.json({
-      success: true,
-      result,
-    });
-  });
+  );
 });
 
 router.get("/api/cloudSignature", authenticateToken, async (req, res) => {
@@ -54,7 +68,7 @@ router.post("/api/signin", (req, res) => {
             const iduser = results[0].iduser;
             const user = { name: username, email: email, iduser: iduser };
             const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN, {
-              expiresIn: "15m",
+              expiresIn: "2h",
             });
             res.json({ success: true, accessToken: accessToken });
           } else {

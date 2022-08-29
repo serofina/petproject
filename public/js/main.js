@@ -308,28 +308,27 @@ if (registration) {
     let myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
-
     function validate(password) {
       var minMaxLength = /^[\s\S]{8,32}$/,
-          upper = /[A-Z]/,
-          lower = /[a-z]/,
-          number = /[0-9]/,
-          special = /[ !"#$%&'()*+,\-./:;<=>?@[\\\]^_`{|}~]/;
-    
-      if (minMaxLength.test(password) &&
-          upper.test(password) &&
-          lower.test(password) &&
-          number.test(password) &&
-          special.test(password)
+        upper = /[A-Z]/,
+        lower = /[a-z]/,
+        number = /[0-9]/,
+        special = /[ !"#$%&'()*+,\-./:;<=>?@[\\\]^_`{|}~]/;
+
+      if (
+        minMaxLength.test(password) &&
+        upper.test(password) &&
+        lower.test(password) &&
+        number.test(password) &&
+        special.test(password)
       ) {
-          return true;
+        return true;
       }
-    
+
       return false;
-  }
+    }
 
     if (password === RPassword && validate(password) === true) {
-
       let raw = JSON.stringify({
         name: name,
         email: email,
@@ -356,9 +355,7 @@ if (registration) {
         .catch((error) => console.error("error", error));
       registration.reset();
     } else {
-
       alert("Passwords do not match or do not meet the requirments listed");
-
     }
   });
 }
@@ -505,9 +502,9 @@ if (customerform) {
 
     const token = localStorage.getItem("accessToken");
 
-    let myHeaders = new Headers();
-    myHeaders.append("Authorization", `Bearer ${token}`);
-    myHeaders.append("Content-Type", "application/json");
+    let headers = new Headers();
+    headers.append("Authorization", `Bearer ${token}`);
+    headers.append("Content-Type", "application/json");
 
     let raw = JSON.stringify({
       firstName: firstName,
@@ -524,7 +521,7 @@ if (customerform) {
 
     let requestOptions = {
       method: "PUT",
-      headers: myHeaders,
+      headers,
       body: raw,
       redirect: "follow",
     };
@@ -535,8 +532,26 @@ if (customerform) {
         if (result.success) alert("Thank you for updating your information");
       })
       .catch((error) => console.log("error", error));
-    customerform.reload();
   });
 }
 
 //end update customer information
+
+const decodeToken = async (token) => {
+  const headers = new Headers();
+  headers.append("Content-Type", "application/json");
+  headers.append("Authorization", `Bearer ${token}`);
+
+  const requestOptions = {
+    method: "POST",
+    headers: headers,
+    body: JSON.stringify({ token }),
+    redirect: "follow",
+  };
+
+  const res = await fetch("/api/decode", requestOptions);
+
+  const { decoded } = await res.json();
+
+  return decoded;
+};

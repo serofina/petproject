@@ -1,6 +1,40 @@
 // *** pet form logic
 const petForm = document.querySelector("#petForm");
 
+const uploadToCloudinary = async (file, field, microchip) => {
+  const token = localStorage.getItem("accessToken");
+
+  let headers = new Headers();
+  headers.append("Content-Type", "application/json");
+  headers.append("Authorization", `Bearer ${token}`);
+
+  // get signature
+  const signatureRes = await fetch("/api/cloudSignature", {
+    method: "GET",
+    redirect: "follow",
+    headers,
+  });
+
+  const { timestamp, signature, key, cloudName } = await signatureRes.json();
+
+  // upload to cloudinary
+  const formdata = new FormData();
+  formdata.append("file", file, `${field}_${microchip}`);
+
+  const signedRes = await fetch(
+    `https://api.cloudinary.com/v1_1/${cloudName}/image/upload?api_key=${key}&signature=${signature}&timestamp=${timestamp}`,
+    {
+      method: "POST",
+      body: formdata,
+      redirect: "follow",
+    }
+  );
+
+  const { secure_url } = await signedRes.json();
+
+  return secure_url;
+};
+
 if (petForm) {
   petForm.addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -42,6 +76,10 @@ if (petForm) {
       ? await uploadToCloudinary(parvo_pdf, "parvo_pdf", microchip)
       : null;
 
+    const token = localStorage.getItem("accessToken");
+
+    const { iduser } = await decodeToken(token);
+
     // prepare form payload
     const payload = {
       name,
@@ -61,11 +99,8 @@ if (petForm) {
       distemper_end_date,
       parvo_start_date,
       parvo_end_date,
+      userId: iduser,
     };
-
-    console.log(payload);
-
-    const token = localStorage.getItem("accessToken");
 
     const headers = new Headers();
     headers.append("Content-Type", "application/json");
@@ -83,38 +118,9 @@ if (petForm) {
     const data = await res.json();
 
     console.log(data);
+
+    document.querySelector("#pet-profile").innerHTML = "";
+
+    await renderPetProfile();
   });
 }
-
-const uploadToCloudinary = async (file, field, microchip) => {
-  const token = localStorage.getItem("accessToken");
-
-  let myHeaders = new Headers();
-  myHeaders.append("Authorization", `Bearer ${token}`);
-
-  // get signature
-  const signatureRes = await fetch("/api/cloudSignature", {
-    method: "GET",
-    redirect: "follow",
-    headers: myHeaders,
-  });
-
-  const { timestamp, signature, key, cloudName } = await signatureRes.json();
-
-  // upload to cloudinary
-  const formdata = new FormData();
-  formdata.append("file", file, `${field}_${microchip}`);
-
-  const signedRes = await fetch(
-    `https://api.cloudinary.com/v1_1/${cloudName}/image/upload?api_key=${key}&signature=${signature}&timestamp=${timestamp}`,
-    {
-      method: "POST",
-      body: formdata,
-      redirect: "follow",
-    }
-  );
-
-  const { secure_url } = await signedRes.json();
-
-  return secure_url;
-};

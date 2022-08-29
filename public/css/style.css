@@ -10127,8 +10127,13 @@ form{
     right: 30%;
     margin-top: 180px
 }
-/********** dog animation************/
+/********** Pet form************/
 
+#pet-profile {
+  display: flex;
+  width: 50%;
+  margin: auto;
+  padding: 24px;
 
-
+}
 
