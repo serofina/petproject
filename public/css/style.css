@@ -10132,3 +10132,15 @@ form{
 
 
 
+/********** confirm ************/
+#confirm_message {
+  max-width: 400px;
+}
+
+#confirm_container {
+  display: grid;
+  place-items: center;
+  place-content: center;
+  padding-top: 10%;
+  padding-bottom: 10%;
+}

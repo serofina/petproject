@@ -87,6 +87,25 @@ app.post("/api/newsletterAddMember", (req, res) => {
 	);
 });
 
+app.post("/schedule", (req, res) => {
+	let { name, email, date, time, service } = req.body;
+	console.log(name, email, date, time, service);
+
+
+	/*connection.query(
+		"INSERT INTO newsletter (name, email) VALUES ( ? , ? )",
+		[name, email],
+		(err) => {
+			if (err) {
+				res.status(404).json({ error: err });
+			}
+			res.json({
+				success: true,
+			});
+		}
+	);*/
+})
+
 app.get("/api/newsletterSubmit", (req, res) => {
 
 	connection.query("SELECT * FROM newsletter", (err, result) => {

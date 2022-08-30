@@ -275,7 +275,8 @@ if (bookingrequest) {
    
     sendMail(bookingemail, subject, message);
     alert("Your request has been set to our staff. If you have any questions, please contact us at 619-555-1234 or info@pet-hotel.com.")
-    bookingrequest.reset();      
+    bookingrequest.reset();     
+    window.open('/confirmation'); 
   })
 }
 

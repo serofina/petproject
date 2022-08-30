@@ -61,6 +61,10 @@ router.get("/confirmation", (req, res) => {
   res.sendFile(path.join(__dirname, "../public/confirmation.html"));
 });
 
+router.get("/schedule", (req, res) => {
+  res.sendFile(path.join(__dirname, "../public/schedule.html"));
+});
+
 router.get("/sendnewsletter", (req, res) => {
   res.sendFile(path.join(__dirname, "../public/sendnewsletter.html"));
 });
