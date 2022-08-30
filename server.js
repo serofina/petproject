@@ -1,98 +1,21 @@
 const express = require("express");
-const bodyParser = require("body-parser");
-const path = require("path");
-const fs = require("fs");
-const mysql = require("mysql2");
-const nodemailer = require("nodemailer");
 const htmlRoute = require("./routes/htmlRoutes");
+const apiRoutes = require("./routes/apiRoutes.js");
+
 require("dotenv").config();
-
-const connection = mysql.createConnection({
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME,
-});
-
-const app = express();
-app.use(express.urlencoded({ extended: false })); // server to accept strings and array from url
-app.use(express.json()); // allows for the server to accept json objs
-
-app.use(bodyParser.json());
-
-app.use(express.static("public"));
-
-app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "/public/index.html"));
-});
-
-// app.get('/sendnewsletter.html', (req, res) => {
-// 	res.sendFile(path.join(__dirname, "/public/sendnewsletter.html"));
-// });
-
-app.post("/api/signin", (req, res) => {
-  res.json("signin");
-});
-
-app.post("/api/mailto", (req, res) => {
-  let { email, subject, message } = req.body;
-  console.log(email, subject);
-  const transporter = nodemailer.createTransport({
-    host: "smtp.ethereal.email",
-    port: 587,
-    auth: {
-      user: "boris66@ethereal.email",
-      pass: "b6wVK8CRsJ5XDMJsTa",
-    },
-  });
-
-  let mailOptions = {
-    from: "pethotelnational@Ethereal.com ",
-    to: email,
-    subject: subject,
-    text: message,
-  };
-
-  transporter.sendMail(mailOptions, function (error, info) {
-    if (error) {
-      res.json(error);
-    } else {
-      res.json("Email sent: " + info.response);
-    }
-  });
-});
-
-app.post("/api/newsletterAddMember", (req, res) => {
-  let { name, email } = req.body;
-  console.log(name, email);
-
-  connection.query(
-    "INSERT INTO newsletter (name, email) VALUES ( ? , ? )",
-    [name, email],
-    (err) => {
-      if (err) {
-        res.status(404).json({ error: err });
-      }
-      res.json({
-        success: true,
-      });
-    }
-  );
-});
-
-app.get("/api/newsletterSubmit", (req, res) => {
-  connection.query("SELECT * FROM newsletter", (err, result) => {
-    if (err) {
-      res.status(404).json({ error: err });
-    }
-    res.json({ result });
-  });
-});
-
-app.use(htmlRoute);
 
 const PORT = process.env.PORT || 3000;
 
+const app = express();
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+app.use(express.static("public"));
+
+app.use(apiRoutes);
+app.use(htmlRoute);
+
 app.listen(PORT, () => {
-  console.log("app in running on node 3000");
+  console.log(`app in running on node ${PORT}`);
 });
