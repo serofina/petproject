@@ -1,4 +1,5 @@
 const express = require('express');
+const session = require('express-session')
 const bodyParser = require('body-parser');
 const path = require("path");
 const fs = require("fs");
@@ -22,6 +23,12 @@ app.use(bodyParser.json());
 
 app.use(express.static("public"));
 
+app.use(session({
+	secret: 'iubfiwqefnuei7h238fbf87hf34ifuyg78',
+	resave: false,
+	saveUninitialized: true,
+	cookie: { maxAge: 1000 * 60 * 60 * 24 }
+  }))
 
 
 
@@ -87,9 +94,20 @@ app.post("/api/newsletterAddMember", (req, res) => {
 	);
 });
 
-app.post("/schedule", (req, res) => {
-	let { name, email, date, time, service } = req.body;
-	console.log(name, email, date, time, service);
+app.get('/booking_info', (req, res) => {
+	if (req.session.data != null) {
+		res.json(req.session.data)
+	} else {
+		res.json({error: "Not logged in"})
+	}
+})
+
+app.post("/booking", (req, res) => {
+	let { first_name, last_name, email, date, time, service } = req.body;
+	console.log("Booking sent")
+
+	req.session.data = { first_name, last_name, email, date, time, service }
+	res.sendStatus(200)
 
 
 	/*connection.query(
@@ -121,6 +139,7 @@ app.post("/customer_signup", (req, res) => {
 	let {first_name, last_name, email, 
 		phone, address1, address2, city, state, zip, 
 		emergency_contact, emergency_number} = req.body
+
 	connection.query(
 			`insert into customer 
 			(

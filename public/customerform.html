@@ -115,8 +115,14 @@
   <!-- second Nav Bar end -->
 
   <!-- customer form start -->
+      <h1 style="text-align: center;" id="service_type"></h1>
+      <h2 style="text-align: center;" id="booking_time"></h2>
+      <h3 style="text-align: center;" id="booking_date"></h3>
   <div id="customerForm" class="customer-form">
     <form class="row g-3 bg-light pt-5 pb-4" autocomplete="on" action="/customer_signup" method="post">
+      <input type="hidden" id="service_type_input" name="service_type">
+      <input type="hidden" id="booking_time_input" name="booking_time">
+      <input type="hidden" id="booking_date_input" name="booking_date">
       <div class="col-md-6">
         <label for="inputFirstName" class="form-label">First Name</label>
         <input type="text" class="form-control" id="inputFirstName" name="first_name" autocomplete="given-name">
@@ -217,7 +223,8 @@
         <input type="tel" class="form-control" id="inputEmergencyTelephoneNumber" name="emergency_number">
       </div>
       <div class="col-12">
-        <input type="submit" value="Send">
+        <a href="petform.html" class="nav-item nav-link">Pet Info</a>
+        <!--<input type="submit" value="Send">-->
        <!-- <button type="update" class="btn btn-outline-primary">Update</button>-->
       </div>
     </form>
@@ -333,6 +340,34 @@
 <script>
   mapboxsearch.autofill({
     accessToken: 'pk.eyJ1IjoibXJleWVzNDEiLCJhIjoiY2w2emZpbDV4MDN3MTN2cGIyYjlmbm0xdSJ9.29t85IWD6S36FtM5elA63g'
+  })
+</script>
+<script>
+  fetch("/booking_info")
+  .then(data => data.json())
+  .then(session_data => {
+    console.log(session_data)
+    let first_name_view = document.getElementById('inputFirstName')
+    let last_name_view = document.getElementById('inputLastName')
+    let email_view = document.getElementById('inputEmail4')
+    let service_type = document.getElementById('service_type')
+    let booking_time = document.getElementById('booking_time')
+    let booking_date = document.getElementById('booking_date')
+
+    //
+
+    first_name_view.value = session_data.first_name
+    last_name_view.value = session_data.last_name
+    email_view.value = session_data.email
+    service_type.innerHTML = session_data.service
+    booking_time.innerHTML = session_data.time
+    booking_date.innerHTML = session_data.date
+    service_type_input.value = session_data.service
+    booking_time_input.value = session_data.time
+    booking_date_input.value = session_data.date
+  })
+  .catch(e => {
+    window.open('/booking')
   })
 </script>
 

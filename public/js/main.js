@@ -263,7 +263,8 @@ if (bookingrequest) {
   bookingrequest.addEventListener("submit", (event) => {
     event.preventDefault();
     
-    const name = document.querySelector("#booking-name").value;
+    const first_name = document.querySelector("#booking-first-name").value;
+    const last_name = document.querySelector("#booking-last-name").value;
     const email = document.querySelector("#booking-email").value;
     const date = document.querySelector("#booking-date").value;
     const time = document.querySelector("#booking-time").value;
@@ -275,8 +276,25 @@ if (bookingrequest) {
    
     sendMail(bookingemail, subject, message);
     alert("Your request has been set to our staff. If you have any questions, please contact us at 619-555-1234 or info@pet-hotel.com.")
-    bookingrequest.reset();     
-    window.open('/confirmation'); 
+    bookingrequest.reset();  
+    
+    fetch('/booking', {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json'
+        // 'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: JSON.stringify({
+        first_name, last_name, email, date, time, service
+      })
+    })
+    .then(data => {
+      window.open('/customerform'); 
+    })
+    .catch(error => {
+      console.log(error)
+      //Handle this
+    })
   })
 }
 
