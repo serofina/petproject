@@ -16,13 +16,38 @@ router.post("/api/decode", authenticateToken, (req, res) => {
   });
 });
 
-router.post("/api/pet-form", authenticateToken, (req, res) => {
+router.post("/api/pet-insert", authenticateToken, (req, res) => {
   connection.query("INSERT INTO pets SET ?", req.body, (err, result) => {
     if (err) {
       res.status(500).json({ error: err });
     }
     res.json({
       success: true,
+    });
+  });
+});
+
+router.post("/api/pet-update", authenticateToken, (req, res) => {
+  connection.query("update pets SET ?", req.body, (err, result) => {
+    if (err) {
+      res.status(500).json({ error: err });
+    }
+    res.json({
+      success: true,
+    });
+  });
+});
+
+router.get("/api/petform_info", authenticateToken, (req, res) => {
+  let { iduser } = req.user;
+  connection.query("SELECT * FROM pets where userid = ?;",iduser, (err, result) => {
+    if (err) {
+      console.log(err);
+      res.status(500).json({ error: err });
+    }
+    res.json({
+      success: true,
+      data: result,
     });
   });
 });

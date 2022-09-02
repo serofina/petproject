@@ -83,10 +83,13 @@ const renderPetProfile = async () => {
                 <p class="card-text"><strong>Notes: </strong>${
                   profile.notes ? profile.notes : "N/A"
                 }</p>
+                <button class="update-btn" data="${profile.id}">Update</button>
             </div>
             </div>
         `;
     });
+
+    //const id = e.target.getAttribute('data');
 
     petProfile.innerHTML = template;
   }

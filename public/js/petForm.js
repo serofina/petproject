@@ -35,6 +35,54 @@ const uploadToCloudinary = async (file, field, microchip) => {
   return secure_url;
 };
 
+
+if (petForm) {
+  
+    // prepare form payload
+    const token = localStorage.getItem("accessToken");
+
+    let myHeaders = new Headers();
+    myHeaders.append("Authorization", `Bearer ${token}`);
+  
+    let requestOptions = {
+      method: "GET",
+      headers: myHeaders,
+      redirect: "follow",
+    };
+  
+    fetch("/api/petform_info", requestOptions)
+      .then((response) => response.json())
+      .then((result) => {
+        console.log(result);
+        document.querySelector("#inputPetName").value= result.data[0].name;
+        document.querySelector("#inputDateOfBirth").value= result.data[0].dob;
+        document.querySelector("#inputPicture").files[0]= result.data[0].pet_photo;
+        document.querySelector("#inputPersonality").value = result.data[0].personality;
+        document.querySelector("#inputBreed").value = result.data[0].breed;
+        document.querySelector("#inputSecondBreed").value=result.data[0].secondary_breed;
+        document.querySelector("#inputRabiesDocument").files[0]=result.data[0].rabies_pdf;
+        document.querySelector("#inputDistemperDocument").files[0]=result.data[0].distemper_pdf;
+        document.querySelector("#inputParvoDocument").files[0]= result.data[0].parvo_pdf;
+        document.querySelector("#inputMicrochip").value=result.data[0].microchip;
+        document.querySelector("#inputNotes").value= result.data[0].notes;
+        document.querySelector("#inputRabiesDate").value = result.data[0].rabies_start_date;
+        document.querySelector("#inputRabiesDueDate").value = result.data[0].rabies_end_date;
+        document.querySelector("#inputDistemperDate").value = result.data[0].distemper_start_date;
+        document.querySelector("#inputDistemperDueDate").value= result.data[0].distemper_end_date;
+        document.querySelector("#inputParvoDate").value=result.data[0].parvo_start_date;
+        document.querySelector("#inputParvoDueDate").value = result.data[0].parvo_end_date;
+        const pet_id = result.data[0].id;
+        console.log(pet_id);
+      })
+      .catch((error) => console.log("error", error));
+}
+
+
+
+
+
+
+
 if (petForm) {
   petForm.addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -124,3 +172,14 @@ if (petForm) {
     await renderPetProfile();
   });
 }
+
+
+
+
+
+
+
+
+
+
+
