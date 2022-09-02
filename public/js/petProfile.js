@@ -83,7 +83,7 @@ const renderPetProfile = async () => {
                 <p class="card-text"><strong>Notes: </strong>${
                   profile.notes ? profile.notes : "N/A"
                 }</p>
-                <button class="update-btn" data="${profile.id}">Update</button>
+                <button class="update-btn" data="${profile.id}">EDIT</button>
             </div>
             </div>
         `;

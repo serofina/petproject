@@ -142,12 +142,23 @@
   </nav>
    <!-- Second Navy Bar -->
 
-  <!-- Pet profile Start -->
+  <!-- add a pet Start -->
+  <div id="addpet" class="">
+    <form class="" id="addpetform" action="submit">
+      <div class="">
+      <button type="addPet" class="btn btn-primary">Add A Pet</button>
+      </div>
+    </form>
+   </div>  
+   <!-- add a pet Start -->
+
+ <!-- Pet profile Start -->
   <div class="wrap">
   <div class="container-fluid pt-5" id="pet-profile">
   </div>
 </div>
   <!-- Pet profile End -->
+ 
 
   <!-- customer form start -->
   <div id="petForm" class="pet-form">
@@ -167,11 +178,12 @@
       <div class="col-md-6 col-form-label-lg">
         <label for="inputPicture" class="form-label">Picture</label>
         <input type="file" class="form-control" id="inputPicture">
+        <input type="text" class="form-control" readonly="readonly" id="photurl" placeholder="Please submit photo.">
         <!-- not sure how this one works -->
       </div>
       <div class="col-md-6 col-form-label-lg">
         <label for="inputPersonality" class="form-label">Personality</label>
-        <input type="text" class="form-control" id="inputPersonality" placeholder="Happy but lazy">
+        <input type="text" class="form-control"  id="inputPersonality" placeholder="Happy but lazy">
       </div>
       <div class="col-md-6 col-form-label-lg">
         <label for="inputBreed" class="form-label">Breed</label>
@@ -547,6 +559,7 @@
       <div class="col-4 col-form-label-lg">
         <label for="inputRabiesDocument" class="form-label">Rabies Vaccine Documents</label>
         <input type="file" class="form-control" id="inputRabiesDocument">
+        <input type="text" class="form-control" readonly="readonly" id="rabiesurl" placeholder="Rabies document.">
       </div>
       <div class="col-4 col-form-label-lg">
         <label for="inputDistemperDate" class="form-label">Date Received Distemper Vaccine</label>
@@ -559,6 +572,7 @@
       <div class="col-4 col-form-label-lg">
         <label for="inputDistemperDocument" class="form-label">Distemper Vaccine Documents</label>
         <input type="file" class="form-control" id="inputDistemperDocument">
+        <input type="text" class="form-control" readonly="readonly" id="distemperurl" placeholder="Distemper document.">
       </div>
       <div class="col-4 col-form-label-lg">
         <label for="inputParvoDate" class="form-label">Date Received Parvo Vaccine</label>
@@ -571,6 +585,7 @@
       <div class="col-4 col-form-label-lg">
         <label for="inputParvoDocument" class="form-label">Parvo Vaccine Documents</label>
         <input type="file" class="form-control" id="inputParvoDocument">
+        <input type="text" class="form-control" readonly="readonly" id="parvourl" placeholder="Parvo Document.">
       </div>
       <div class="col-4 col-form-label-lg">
         <label for="inputMicrochip" class="form-label">Microchip Number</label>
@@ -583,9 +598,6 @@
       </div>
       <div class="col-4 col-form-label-lg">
         <button type="update" class="btn btn-primary">Update</button>
-      </div>
-      <div class="col-4 col-form-label-lg">
-        <button type="addPet" class="btn btn-primary">Add A Pet</button>
       </div>
       <div class="col-4 col-form-label-lg">
         <button type="reset" class="btn btn-primary">Clear Form</button>

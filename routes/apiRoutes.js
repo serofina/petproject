@@ -17,38 +17,43 @@ router.post("/api/decode", authenticateToken, (req, res) => {
 });
 
 router.post("/api/pet-insert", authenticateToken, (req, res) => {
-  connection.query("INSERT INTO pets SET ?", req.body, (err, result) => {
-    if (err) {
-      res.status(500).json({ error: err });
-    }
-    res.json({
-      success: true,
-    });
-  });
-});
-
-router.post("/api/pet-update", authenticateToken, (req, res) => {
-  connection.query("update pets SET ?", req.body, (err, result) => {
-    if (err) {
-      res.status(500).json({ error: err });
-    }
-    res.json({
-      success: true,
-    });
-  });
-});
-
-router.get("/api/petform_info", authenticateToken, (req, res) => {
   let { iduser } = req.user;
-  connection.query("SELECT * FROM pets where userid = ?;",iduser, (err, result) => {
+  connection.query("INSERT INTO `pets` (`userid`) VALUES (?);", iduser, (err, result) => {
+    if (err) {
+      res.status(500).json({ error: err });
+      console.log(err);
+    }else{
+    res.json({
+      success: true,
+    });
+  }
+  });
+});
+
+router.put("/api/pet-update/:pet_id", authenticateToken, (req, res) => {
+  connection.query("update pets SET ? where id =?", [req.body,req.params.pet_id],
+   (err, result) => {
+    if (err) {
+      res.status(500).json({ error: err });
+    }else{
+    res.json({
+      success: true,
+    });
+  }
+  });
+});
+
+router.get("/api/petform_info/:pet_id", authenticateToken, (req, res) => {
+  connection.query("SELECT * FROM pets where id = ?;",req.params.pet_id, (err, result) => {
     if (err) {
       console.log(err);
       res.status(500).json({ error: err });
-    }
+    }else{
     res.json({
       success: true,
       data: result,
     });
+  }
   });
 });
 
@@ -59,11 +64,12 @@ router.get("/api/pet-form/:userId", authenticateToken, (req, res) => {
     (err, result) => {
       if (err) {
         res.status(500).json({ error: err });
-      }
+      }else{
       res.json({
         success: true,
         data: result,
       });
+    }
     }
   );
 });
@@ -145,10 +151,11 @@ router.post("/api/newsletterAddMember", authenticateToken, (req, res) => {
     (err) => {
       if (err) {
         res.status(404).json({ error: err });
-      }
+      }else{
       res.json({
         success: true,
       });
+    }
     }
   );
 });
