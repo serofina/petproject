@@ -1,6 +1,11 @@
 // *** pet form logic
 
 let pet_id = "";
+let petPhotoSignedUrl ="";
+let rabiesPdfSignedUrl="";
+let distemperPdfSignedUrl="";
+let parvoPdfSignedUrl="";
+
 const petForm = document.querySelector("#petForm");
 
 const uploadToCloudinary = async (file, field, microchip) => {
@@ -65,18 +70,46 @@ if (petForm) {
     const parvo_start_date = document.querySelector("#inputParvoDate").value;
     const parvo_end_date = document.querySelector("#inputParvoDueDate").value;
 
-    const petPhotoSignedUrl = pet_photo
+   
+    const petPhotoSignedUrl_uplaod = pet_photo
       ? await uploadToCloudinary(pet_photo, "pet_photo", microchip)
       : null;
-    const rabiesPdfSignedUrl = rabies_pdf
+
+    if(petPhotoSignedUrl_uplaod === null || petPhotoSignedUrl_uplaod === undefined){
+      petPhotoSignedUrl= document.querySelector("#photourl").value;
+    }else{
+      petPhotoSignedUrl= petPhotoSignedUrl_uplaod;
+    }
+      
+    const rabiesPdfSignedUrl_upload = rabies_pdf
       ? await uploadToCloudinary(rabies_pdf, "rabies_pdf", microchip)
       : null;
-    const distemperPdfSignedUrl = distemper_pdf
+
+    if(rabiesPdfSignedUrl_upload === null ||rabiesPdfSignedUrl_upload === undefined){
+      rabiesPdfSignedUrl= document.querySelector("#rabiesurl").value;
+    }else{
+      rabiesPdfSignedUrl = rabiesPdfSignedUrl_upload;
+    }
+
+    const distemperPdfSignedUrl_upload = distemper_pdf
       ? await uploadToCloudinary(distemper_pdf, "distemper_pdf", microchip)
       : null;
-    const parvoPdfSignedUrl = parvo_pdf
+    
+    if(distemperPdfSignedUrl_upload === null || distemperPdfSignedUrl_upload === undefined){
+      distemperPdfSignedUrl= document.querySelector("#distemperurl").value; 
+    }else{
+      distemperPdfSignedUrl = distemperPdfSignedUrl_upload;
+    }     
+
+    const parvoPdfSignedUrl_upload = parvo_pdf
       ? await uploadToCloudinary(parvo_pdf, "parvo_pdf", microchip)
       : null;
+
+    if(parvoPdfSignedUrl_upload === null || parvoPdfSignedUrl_upload === undefined){
+      parvoPdfSignedUrl = document.querySelector("#parvourl").value;
+    }else{
+      parvoPdfSignedUrl = parvoPdfSignedUrl_upload;
+    }
 
     const token = localStorage.getItem("accessToken");
 
@@ -147,7 +180,7 @@ if (add_pet) {
       .then((response) => response.json())
       .then((result) => {
         if (result.success) {
-          alert("Thank you for updating your information");
+          alert("A pet has been added, please update their information.");
           location.reload();
         } else {
           alert("Unable to add pet at this time. Please try again later.");
@@ -183,13 +216,13 @@ if (pet_profile_update) {
         console.log(result);
         document.querySelector("#inputPetName").value= result.data[0].name;
         document.querySelector("#inputDateOfBirth").value= result.data[0].dob;
-        document.querySelector("#inputPicture").files[0]= result.data[0].pet_photo;
+        document.querySelector("#photourl").value= result.data[0].pet_photo;
         document.querySelector("#inputPersonality").value = result.data[0].personality;
         document.querySelector("#inputBreed").value = result.data[0].breed;
         document.querySelector("#inputSecondBreed").value=result.data[0].secondary_breed;
-        document.querySelector("#inputRabiesDocument").files[0]=result.data[0].rabies_pdf;
-        document.querySelector("#inputDistemperDocument").files[0]=result.data[0].distemper_pdf;
-        document.querySelector("#inputParvoDocument").files[0]= result.data[0].parvo_pdf;
+        document.querySelector("#rabiesurl").value=result.data[0].rabies_pdf;
+        document.querySelector("#distemperurl").value=result.data[0].distemper_pdf;
+        document.querySelector("#parvourl").value= result.data[0].parvo_pdf;
         document.querySelector("#inputMicrochip").value=result.data[0].microchip;
         document.querySelector("#inputNotes").value= result.data[0].notes;
         document.querySelector("#inputRabiesDate").value = result.data[0].rabies_start_date;
@@ -199,7 +232,7 @@ if (pet_profile_update) {
         document.querySelector("#inputParvoDate").value=result.data[0].parvo_start_date;
         document.querySelector("#inputParvoDueDate").value = result.data[0].parvo_end_date;
         pet_id = result.data[0].id;
-        
+
         // console.log(pet_id);
       })
       .catch((error) => console.log("error", error));
