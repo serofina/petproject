@@ -157,6 +157,8 @@ if (petForm) {
     document.querySelector("#pet-profile").innerHTML = "";
 
     await renderPetProfile();
+    alert("Pet Updated")
+    window.location.href = "/petform#pet-profile";
   });
 }
 
@@ -232,7 +234,7 @@ if (pet_profile_update) {
         document.querySelector("#inputParvoDate").value=result.data[0].parvo_start_date;
         document.querySelector("#inputParvoDueDate").value = result.data[0].parvo_end_date;
         pet_id = result.data[0].id;
-
+        window.location.href = "/petform#petForm";
         // console.log(pet_id);
       })
       .catch((error) => console.log("error", error));
