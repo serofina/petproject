@@ -143,7 +143,7 @@ router.post("/api/mailto", (req, res) => {
   });
 });
 
-router.post("/api/newsletterAddMember", authenticateToken, (req, res) => {
+router.post("/api/newsletterAddMember", (req, res) => {
   let { name, email } = req.body;
   connection.query(
     "INSERT INTO newsletter (name, email) VALUES ( ? , ? )",
@@ -160,14 +160,20 @@ router.post("/api/newsletterAddMember", authenticateToken, (req, res) => {
   );
 });
 
-router.get("/api/newsletterSubmit", authenticateToken, (req, res) => {
-  connection.query("SELECT * FROM newsletter", function (err, result) {
-    if (err) {
-      res.status(404).json({ error: err });
-    }
-    res.json({ result });
-  });
+router.get("/api/newsletterSubmit", authenticateToken,(req, res) => {
+  let { iduser } = req.user;
+    if (iduser===155) {
+      connection.query("SELECT * FROM newsletter", function (err, result) {
+        if (err) {
+          res.status(404).json({ error: err });
+        }else{
+        res.json({ result });
+        }
+      });
+    }else{  res.status(404).json({ error: "invalid User" });
+  }
 });
+
 
 router.post("/api/register", (req, res) => {
   const { email, name, password } = req.body;
