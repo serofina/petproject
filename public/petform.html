@@ -64,7 +64,7 @@
   <!-- Topbar End -->
 
   <!-- Navbar Start -->
-  <div class="container-fluid p-0">
+  <!-- <div class="container-fluid p-0">
     <nav class="navbar navbar-expand-lg bg-dark navbar-dark py-3 py-lg-0 px-lg-5">
       <a href="" class="navbar-brand d-block d-lg-none">
         <h1 class="m-0 display-5 text-capitalize font-italic text-white">
@@ -76,7 +76,7 @@
       </button>
       <div class="collapse navbar-collapse justify-content-between px-3" id="navbarCollapse">
         <div class="navbar-nav mr-auto py-0">
-          <a href="/index" class="nav-item nav-link active">Home</a>
+          <a href="/index" class="nav-item nav-link">Home</a>
           <a href="/about" class="nav-item nav-link">About</a>
           <a href="/service" class="nav-item nav-link">Service</a>
           <a href="/requirements" class="nav-item nav-link">Requirements</a>
@@ -86,15 +86,14 @@
         </div>
         <a href="/login" class="form-btn btn-primary">Customer Login</a>
         <a href="/registration" class="form-btn btn-primary">Sign Up</a>
-
       </div>
     </nav>
-  </div>
+  </div> -->
   <!-- Navbar End -->
 
   <!-- Second Navy Bar -->
 
-  <div class="container-fluid">
+  <!-- <div class="container-fluid">
     <nav class="navbar navbar-expand-lg bg-light pt-5 pb-4">
       <a href="" class="navbar-brand d-block d-lg-none">
         <h1 class="m-0 display-5 text-capitalize font-italic text-white">
@@ -106,14 +105,17 @@
       </button>
       <div class="collapse navbar-collapse justify-content-between px-3" id="navbarCollapse">
         <div class="navbar-nav mr-auto py-0">
-          <a href="/customerform" class="nav-item nav-link active">Customer Info</a>
-          <a href="/petform" class="nav-item nav-link">Pet Info</a>
+          <a href="/customerform" class="nav-item nav-link">Customer Info</a>
+          <a href="/petform" class="nav-item nav-link active">Pet Info</a>
           <a href="/booking" class="nav-item nav-link">Make a reservation</a>
         </div>
       </div>
     </nav>
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 =======
+=======
+>>>>>>> main
   </div> -->
    <!-- Second Navy Bar -->
 
@@ -125,16 +127,28 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto">
+<<<<<<< HEAD
         <div class="hori-selector" style="top: 0px; left: 890.517px; height: 62.5px; width: 134.867px">
+=======
+        <div class="hori-selector">
+>>>>>>> main
           <div class="left"></div>
           <div class="right"></div>
         </div>
   
+<<<<<<< HEAD
         <li class="nav-item">
          <a class="nav-link" href="/customerform"><i class="fa fa-user"></i>Customer Profile</a>
         </li>
         <li class="nav-item active">
           <a class="nav-link" href="/petform"><i class="fa fa-paw"></i>Pet Profile</a>
+=======
+        <li class="nav-item active">
+         <a class="nav-link" href="/customerform"><i class="fa fa-user"></i>Coustomer Profile</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="javascript:void(0);"><i class="fa fa-paw"></i>Pet Profile</a>
+>>>>>>> main
         </li>
         <li class="nav-item">
           <a class="nav-link" href="/booking"><i class="far fa-calendar-alt"></i>Make Reservation</a>
@@ -158,8 +172,14 @@
  <!-- Pet profile Start -->
   <div class="wrap">
   <div class="container-fluid pt-5" id="pet-profile">
+<<<<<<< HEAD
 >>>>>>> Stashed changes
+=======
+>>>>>>> main
   </div>
+</div>
+  <!-- Pet profile End -->
+ 
 
   <!-- customer form start -->
   <div id="petForm" class="pet-form">
@@ -179,11 +199,12 @@
       <div class="col-md-6 col-form-label-lg">
         <label for="inputPicture" class="form-label">Picture</label>
         <input type="file" class="form-control" id="inputPicture">
+        <input type="text" class="form-control" readonly="readonly" id="photourl" value= "Please submit photo." >
         <!-- not sure how this one works -->
       </div>
       <div class="col-md-6 col-form-label-lg">
         <label for="inputPersonality" class="form-label">Personality</label>
-        <input type="text" class="form-control" id="inputPersonality" placeholder="Happy but lazy">
+        <input type="text" class="form-control"  id="inputPersonality" placeholder="Happy but lazy">
       </div>
       <div class="col-md-6 col-form-label-lg">
         <label for="inputBreed" class="form-label">Breed</label>
@@ -559,6 +580,7 @@
       <div class="col-4 col-form-label-lg">
         <label for="inputRabiesDocument" class="form-label">Rabies Vaccine Documents</label>
         <input type="file" class="form-control" id="inputRabiesDocument">
+        <input type="text" class="form-control" readonly="readonly" id="rabiesurl" placeholder="Rabies document.">
       </div>
       <div class="col-4 col-form-label-lg">
         <label for="inputDistemperDate" class="form-label">Date Received Distemper Vaccine</label>
@@ -571,6 +593,7 @@
       <div class="col-4 col-form-label-lg">
         <label for="inputDistemperDocument" class="form-label">Distemper Vaccine Documents</label>
         <input type="file" class="form-control" id="inputDistemperDocument">
+        <input type="text" class="form-control" readonly="readonly" id="distemperurl" placeholder="Distemper document.">
       </div>
       <div class="col-4 col-form-label-lg">
         <label for="inputParvoDate" class="form-label">Date Received Parvo Vaccine</label>
@@ -583,6 +606,7 @@
       <div class="col-4 col-form-label-lg">
         <label for="inputParvoDocument" class="form-label">Parvo Vaccine Documents</label>
         <input type="file" class="form-control" id="inputParvoDocument">
+        <input type="text" class="form-control" readonly="readonly" id="parvourl" placeholder="Parvo Document.">
       </div>
       <div class="col-4 col-form-label-lg">
         <label for="inputMicrochip" class="form-label">Microchip Number</label>
@@ -597,10 +621,10 @@
         <button type="update" class="btn btn-primary">Update</button>
       </div>
       <div class="col-4 col-form-label-lg">
-        <button type="addPet" class="btn btn-primary">Add A Pet</button>
-      </div>
-      <div class="col-4 col-form-label-lg">
         <button type="reset" class="btn btn-primary">Clear Form</button>
+      </div>
+      <div class="col-4 col-form-label-lg"></div>
+        <p>Updates can take up to a few minutes depending on the size files you have uploaded</p>
       </div>
     </form>
   </div>
@@ -642,17 +666,16 @@
             <a class="text-white mb-2" href="/service"><i class="fa fa-angle-right mr-2"></i>Services</a>
             <a class="text-white mb-2" href="/requirements"><i class="fa fa-angle-right mr-2"></i>Requirements</a>
             <a class="text-white mb-2" href="/contact"><i class="fa fa-angle-right mr-2"></i>Contact Us</a>
-
           </div>
         </div>
         <div class="col-md-4 mb-5">
           <h5 class="text-primary mb-4">Newsletter</h5>
           <form id = "newsletter-add"action="submit">
             <div class="form-group">
-              <input type="text" id = "newsletter-name" class="form-control border-0" placeholder="Your Name" required="required" />
+              <input type="text" id = "newsletter-name" class="form-control-newsletter border-0" placeholder="Your Name" required="required" />
             </div>
             <div class="form-group">
-              <input type="email" id = "newsletter-email" class="form-control border-0" placeholder="Your Email" required="required" />
+              <input type="email" id = "newsletter-email" class="form-control-newsletter border-0" placeholder="Your Email" required="required" />
             </div>
             <div>
               <button class="btn btn-lg btn-primary btn-block border-0" type="submit">
@@ -672,7 +695,7 @@
         &copy;
         <a class="text-white font-weight-bold" href="#">www.PetHotel.com</a>.
         All Rights Reserved. Designed by
-        <a class="text-white font-weight-bold" href="https://htmlcodex.com">HTML Codex</a>
+        <a class="text-white font-weight-bold" href="https://www.nu.edu/">ComputerScienceNU Project</a>
       </p>
     </div>
     <div class="col-md-6 text-center text-md-right">
@@ -685,7 +708,7 @@
           <a class="nav-link text-white py-0" href="/faqs">FAQs</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white py-0" href="/help">Help</a>
+          <a class="nav-link text-white py-0" href="/contact">Help</a>
         </li>
       </ul>
     </div>
@@ -709,6 +732,7 @@
 
   <!-- Template Javascript -->
   <script src="js/main.js"></script>
+  <script src="js/petProfile.js"></script>
   <script src="js/petForm.js"></script>
 </body>
 

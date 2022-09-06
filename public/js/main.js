@@ -218,8 +218,15 @@ if (newsletter_email) {
     const subject = document.querySelector("#newsletter-subject").value;
     const message = document.querySelector("#newsletter-message").value;
 
+    const token = localStorage.getItem("accessToken");
+    // console.log(token);
+  
+    let myHeaders = new Headers();
+    myHeaders.append("Authorization", `Bearer ${token}`);
+
     let requestOptions = {
       method: "GET",
+      headers: myHeaders,
       redirect: "follow",
     };
 
@@ -308,28 +315,27 @@ if (registration) {
     let myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
-
     function validate(password) {
       var minMaxLength = /^[\s\S]{8,32}$/,
-          upper = /[A-Z]/,
-          lower = /[a-z]/,
-          number = /[0-9]/,
-          special = /[ !"#$%&'()*+,\-./:;<=>?@[\\\]^_`{|}~]/;
-    
-      if (minMaxLength.test(password) &&
-          upper.test(password) &&
-          lower.test(password) &&
-          number.test(password) &&
-          special.test(password)
+        upper = /[A-Z]/,
+        lower = /[a-z]/,
+        number = /[0-9]/,
+        special = /[ !"#$%&'()*+,\-./:;<=>?@[\\\]^_`{|}~]/;
+
+      if (
+        minMaxLength.test(password) &&
+        upper.test(password) &&
+        lower.test(password) &&
+        number.test(password) &&
+        special.test(password)
       ) {
-          return true;
+        return true;
       }
-    
+
       return false;
-  }
+    }
 
     if (password === RPassword && validate(password) === true) {
-
       let raw = JSON.stringify({
         name: name,
         email: email,
@@ -356,9 +362,7 @@ if (registration) {
         .catch((error) => console.error("error", error));
       registration.reset();
     } else {
-
       alert("Passwords do not match or do not meet the requirments listed");
-
     }
   });
 }
@@ -505,9 +509,9 @@ if (customerform) {
 
     const token = localStorage.getItem("accessToken");
 
-    let myHeaders = new Headers();
-    myHeaders.append("Authorization", `Bearer ${token}`);
-    myHeaders.append("Content-Type", "application/json");
+    let headers = new Headers();
+    headers.append("Authorization", `Bearer ${token}`);
+    headers.append("Content-Type", "application/json");
 
     let raw = JSON.stringify({
       firstName: firstName,
@@ -524,7 +528,7 @@ if (customerform) {
 
     let requestOptions = {
       method: "PUT",
-      headers: myHeaders,
+      headers,
       body: raw,
       redirect: "follow",
     };
@@ -535,8 +539,108 @@ if (customerform) {
         if (result.success) alert("Thank you for updating your information");
       })
       .catch((error) => console.log("error", error));
-    customerform.reload();
   });
 }
 
 //end update customer information
+
+const decodeToken = async (token) => {
+  const headers = new Headers();
+  headers.append("Content-Type", "application/json");
+  headers.append("Authorization", `Bearer ${token}`);
+
+  const requestOptions = {
+    method: "POST",
+    headers: headers,
+    body: JSON.stringify({ token }),
+    redirect: "follow",
+  };
+
+  const res = await fetch("/api/decode", requestOptions);
+
+  const { decoded } = await res.json();
+
+  return decoded;
+};
+
+//second navbar
+
+// ---------Responsive-navbar-active-animation-----------
+function test() {
+  var tabsNewAnim = $("#navbarSupportedContent");
+  var selectorNewAnim = $("#navbarSupportedContent").find("li").length;
+  var activeItemNewAnim = tabsNewAnim.find(".active");
+  var activeWidthNewAnimHeight = activeItemNewAnim.innerHeight();
+  var activeWidthNewAnimWidth = activeItemNewAnim.innerWidth();
+  var itemPosNewAnimTop = activeItemNewAnim.position();
+  var itemPosNewAnimLeft = activeItemNewAnim.position();
+  $(".hori-selector").css({
+    top: itemPosNewAnimTop.top + "px",
+    left: itemPosNewAnimLeft.left + "px",
+    height: activeWidthNewAnimHeight + "px",
+    width: activeWidthNewAnimWidth + "px",
+  });
+  $("#navbarSupportedContent").on("click", "li", function (e) {
+    $("#navbarSupportedContent ul li").removeClass("active");
+    $(this).addClass("active");
+    var activeWidthNewAnimHeight = $(this).innerHeight();
+    var activeWidthNewAnimWidth = $(this).innerWidth();
+    var itemPosNewAnimTop = $(this).position();
+    var itemPosNewAnimLeft = $(this).position();
+    $(".hori-selector").css({
+      top: itemPosNewAnimTop.top + "px",
+      left: itemPosNewAnimLeft.left + "px",
+      height: activeWidthNewAnimHeight + "px",
+      width: activeWidthNewAnimWidth + "px",
+    });
+  });
+}
+$(document).ready(function () {
+  setTimeout(function () {
+    test();
+  });
+});
+$(window).on("resize", function () {
+  setTimeout(function () {
+    test();
+  }, 500);
+});
+$(".navbar-toggler").click(function () {
+  $(".navbar-collapse").slideToggle(300);
+  setTimeout(function () {
+    test();
+  });
+});
+
+// --------------add active class-on another-page move----------
+jQuery(document).ready(function ($) {
+  // Get current path and find target link
+  var path = window.location.pathname.split("/").pop();
+
+  // Account for home page with empty path
+  if (path == "") {
+    path = "index.html";
+  }
+
+  var target = $('#navbarSupportedContent ul li a[href="' + path + '"]');
+  // Add active class to target link
+  target.parent().addClass("active");
+});
+
+// Add active class on another page linked
+// ==========================================
+// $(window).on("load", function () {
+//   var current = location.pathname;
+//   console.log(current);
+//   $("#navbarSupportedContent ul li a").each(function () {
+//     var $this = $(this);
+//     // if the current path is like this link, make it active
+//     if ($this.attr("href").indexOf(current) !== -1) {
+//       $this.parent().addClass("active");
+//       $this.parents(".menu-submenu").addClass("show-dropdown");
+//       $this.parents(".menu-submenu").parent().addClass("active");
+//     } else {
+//       $this.parent().removeClass("active");
+//     }
+//   });
+// });

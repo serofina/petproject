@@ -89,4 +89,13 @@ CREATE TABLE pets (
 	parvo_pdf VARCHAR(255),
 	microchip VARCHAR(255) NOT NULL,
 	notes VARCHAR(255)
+  userId INT NOT NULL,
+  FOREIGN KEY (userId) REFERENCES users(iduser)
 );
+
+
+        INSERT INTO pets (`iduser`) VALUES (@userid);
+
+-- Seed --
+INSERT INTO `pets` (`id`, `name`, `dob`, `pet_photo`, `personality`, `breed`, `secondary_breed`, `rabies_start_date`, `rabies_end_date`, `rabies_pdf`, `distemper_start_date`, `distemper_end_date`, `distemper_pdf`, `parvo_start_date`, `parvo_end_date`, `parvo_pdf`, `microchip`, `notes`) VALUES
+(1, 'Lucy', '2022-08-25', 'https://res.cloudinary.com/memescloud/image/upload/v1661056590/ffvwehvuoskfufe5xro4.png', 'Psyco', 'Airedale Terrier', 'Am. Staffordshire Terrier', '2022-08-26', '2022-08-25', 'https://res.cloudinary.com/memescloud/image/upload/v1661056591/ercb4lu7egiugp2al1j9.png', '2022-09-02', '2022-08-26', 'https://res.cloudinary.com/memescloud/image/upload/v1661056591/lhv1zfeocurgrkk4drhu.png', '2022-08-26', '2022-09-01', 'https://res.cloudinary.com/memescloud/image/upload/v1661056592/yxejzfotcjkwl1qcsjxj.png', '23', '4');
