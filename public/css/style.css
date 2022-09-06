@@ -2382,6 +2382,28 @@ fieldset:disabled a.btn {
   margin-left: 4px;
 }
 
+.btn-primary-next {
+  color: #fff;
+  background-color: #36a4ed;
+  border-color: #36a4ed;
+  float: right;
+  padding: 8px 24px;
+  font-size: 15px;
+  border-radius: 12px;
+  margin-left: 4px;
+}
+
+.btn-primary-mid {
+  color: #fff;
+  background-color: #36a4ed;
+  border-color: #36a4ed;
+  float: center;
+  padding: 8px 24px;
+  font-size: 15px;
+  border-radius: 12px;
+  margin-left: 4px;
+}
+
 .btn-primary:hover {
   color: #fff;
   background-color: #0a2fea;
