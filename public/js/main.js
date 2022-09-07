@@ -218,8 +218,15 @@ if (newsletter_email) {
     const subject = document.querySelector("#newsletter-subject").value;
     const message = document.querySelector("#newsletter-message").value;
 
+    const token = localStorage.getItem("accessToken");
+    // console.log(token);
+  
+    let myHeaders = new Headers();
+    myHeaders.append("Authorization", `Bearer ${token}`);
+
     let requestOptions = {
       method: "GET",
+      headers: myHeaders,
       redirect: "follow",
     };
 

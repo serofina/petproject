@@ -16,14 +16,44 @@ router.post("/api/decode", authenticateToken, (req, res) => {
   });
 });
 
-router.post("/api/pet-form", authenticateToken, (req, res) => {
-  connection.query("INSERT INTO pets SET ?", req.body, (err, result) => {
+router.post("/api/pet-insert", authenticateToken, (req, res) => {
+  let { iduser } = req.user;
+  connection.query("INSERT INTO `pets` (`userid`) VALUES (?);", iduser, (err, result) => {
     if (err) {
       res.status(500).json({ error: err });
-    }
+      console.log(err);
+    }else{
     res.json({
       success: true,
     });
+  }
+  });
+});
+
+router.put("/api/pet-update/:pet_id", authenticateToken, (req, res) => {
+  connection.query("update pets SET ? where id =?", [req.body,req.params.pet_id],
+   (err, result) => {
+    if (err) {
+      res.status(500).json({ error: err });
+    }else{
+    res.json({
+      success: true,
+    });
+  }
+  });
+});
+
+router.get("/api/petform_info/:pet_id", authenticateToken, (req, res) => {
+  connection.query("SELECT * FROM pets where id = ?;",req.params.pet_id, (err, result) => {
+    if (err) {
+      console.log(err);
+      res.status(500).json({ error: err });
+    }else{
+    res.json({
+      success: true,
+      data: result,
+    });
+  }
   });
 });
 
@@ -34,11 +64,12 @@ router.get("/api/pet-form/:userId", authenticateToken, (req, res) => {
     (err, result) => {
       if (err) {
         res.status(500).json({ error: err });
-      }
+      }else{
       res.json({
         success: true,
         data: result,
       });
+    }
     }
   );
 });
@@ -112,7 +143,7 @@ router.post("/api/mailto", (req, res) => {
   });
 });
 
-router.post("/api/newsletterAddMember", authenticateToken, (req, res) => {
+router.post("/api/newsletterAddMember", (req, res) => {
   let { name, email } = req.body;
   connection.query(
     "INSERT INTO newsletter (name, email) VALUES ( ? , ? )",
@@ -120,22 +151,29 @@ router.post("/api/newsletterAddMember", authenticateToken, (req, res) => {
     (err) => {
       if (err) {
         res.status(404).json({ error: err });
-      }
+      }else{
       res.json({
         success: true,
       });
     }
+    }
   );
 });
 
-router.get("/api/newsletterSubmit", authenticateToken, (req, res) => {
-  connection.query("SELECT * FROM newsletter", function (err, result) {
-    if (err) {
-      res.status(404).json({ error: err });
-    }
-    res.json({ result });
-  });
+router.get("/api/newsletterSubmit", authenticateToken,(req, res) => {
+  let { iduser } = req.user;
+    if (iduser===155) {
+      connection.query("SELECT * FROM newsletter", function (err, result) {
+        if (err) {
+          res.status(404).json({ error: err });
+        }else{
+        res.json({ result });
+        }
+      });
+    }else{  res.status(404).json({ error: "invalid User" });
+  }
 });
+
 
 router.post("/api/register", (req, res) => {
   const { email, name, password } = req.body;
