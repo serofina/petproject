@@ -10153,9 +10153,10 @@ form{
 
 #pet-profile {
   display: flex;
-  width: 50%;
+  width: 100%;
   margin: auto;
   padding: 24px;
+  flex-direction:column;
 
 }
 
@@ -10539,4 +10540,15 @@ adiv{
   color:white;
   padding:2rem;
 
+}
+
+
+.update-btn{
+  color: #fff;
+    background-color: #36a4ed;
+    border-color: #36a4ed;
+    padding: 8px 24px;
+    font-size: 15px;
+    border-radius: 12px;
+    margin-left: 4px;
 }
