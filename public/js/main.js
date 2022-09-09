@@ -117,8 +117,6 @@ const sendMail = (email, subject, message) => {
   let myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
 
-  console.log(email, subject);
-
   let raw = JSON.stringify({
     email: email,
     subject: subject,
@@ -147,8 +145,6 @@ if (form_email) {
   form_email.addEventListener("submit", (event) => {
     event.preventDefault();
 
-    console.log("event", event);
-
     const email = document.querySelector("#email-address").value;
     const subject = document.querySelector("#email-subject").value;
     const message = document.querySelector("#email-message").value;
@@ -169,7 +165,6 @@ if (form_newsletter) {
 
     const name = document.querySelector("#newsletter-name").value;
     const email = document.querySelector("#newsletter-email").value;
-    console.log(name, email);
 
     let myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
@@ -213,13 +208,10 @@ if (newsletter_email) {
   newsletter_email.addEventListener("submit", (event) => {
     event.preventDefault();
 
-    console.log("event", event);
-
     const subject = document.querySelector("#newsletter-subject").value;
     const message = document.querySelector("#newsletter-message").value;
 
     const token = localStorage.getItem("accessToken");
-    // console.log(token);
   
     let myHeaders = new Headers();
     myHeaders.append("Authorization", `Bearer ${token}`);
@@ -316,7 +308,7 @@ if (registration) {
     myHeaders.append("Content-Type", "application/json");
 
     function validate(password) {
-      var minMaxLength = /^[\s\S]{8,32}$/,
+      let minMaxLength = /^[\s\S]{8,32}$/,
         upper = /[A-Z]/,
         lower = /[a-z]/,
         number = /[0-9]/,
@@ -352,7 +344,6 @@ if (registration) {
       fetch("/api/register", requestOptions)
         .then((response) => response.json())
         .then((result) => {
-          console.log("********result", result);
           if (result.success) {
             window.location.replace("/login");
           } else {
@@ -372,7 +363,6 @@ if (registration) {
 
 const customerHomePage = () => {
   const token = localStorage.getItem("accessToken");
-  // console.log(token);
 
   let myHeaders = new Headers();
   myHeaders.append("Authorization", `Bearer ${token}`);
@@ -422,7 +412,6 @@ if (sigin) {
       .then((response) => response.json())
       .then((result) => {
         if (result.success) {
-          console.log(result.accessToken);
           localStorage.setItem("accessToken", result.accessToken);
           customerHomePage();
         } else {
@@ -459,7 +448,6 @@ if (customerform) {
   fetch("api/customerinformation", requestOptions)
     .then((response) => response.json())
     .then((result) => {
-      console.log(result);
       document.querySelector("#inputFirstName").value = result[0].firstName;
       document.querySelector("#inputLastName").value = result[0].lastName;
       document.querySelector("#inputTelephoneNumber").value = result[0].phone;
@@ -487,7 +475,6 @@ if (customerform) {
 if (customerform) {
   customerform.addEventListener("submit", (event) => {
     event.preventDefault();
-    console.log("loaded");
 
     //create all the varaibles incase they don't come back from the server
 

@@ -21,7 +21,6 @@ router.post("/api/pet-insert", authenticateToken, (req, res) => {
   connection.query("INSERT INTO `pets` (`userid`) VALUES (?);", iduser, (err, result) => {
     if (err) {
       res.status(500).json({ error: err });
-      console.log(err);
     }else{
     res.json({
       success: true,
@@ -46,7 +45,6 @@ router.put("/api/pet-update/:pet_id", authenticateToken, (req, res) => {
 router.get("/api/petform_info/:pet_id", authenticateToken, (req, res) => {
   connection.query("SELECT * FROM pets where id = ?;",req.params.pet_id, (err, result) => {
     if (err) {
-      console.log(err);
       res.status(500).json({ error: err });
     }else{
     res.json({
@@ -94,7 +92,7 @@ router.post("/api/signin", (req, res) => {
         if (results.length > 0) {
           const isvalid = bcrypt.compareSync(password, results[0].hash);
           if (isvalid) {
-            const username = results[0].username;
+            const username = results[0].name;
             const email = results[0].email;
             const iduser = results[0].iduser;
             const user = { name: username, email: email, iduser: iduser };
@@ -117,7 +115,6 @@ router.post("/api/signin", (req, res) => {
 
 router.post("/api/mailto", (req, res) => {
   let { email, subject, message } = req.body;
-  console.log(email, subject);
   const transporter = nodemailer.createTransport({
     host: "smtp.ethereal.email",
     port: 587,
@@ -177,13 +174,10 @@ router.get("/api/newsletterSubmit", authenticateToken,(req, res) => {
 
 router.post("/api/register", (req, res) => {
   const { email, name, password } = req.body;
-
-  console.log(req.body);
   const hash = bcrypt.hashSync(password, 10);
   connection.query(
     `call addUser ("${name}", "${email}", "${hash}")`,
     function (err, result) {
-      console.log("****", result);
       if (result[0][0].hasOwnProperty("fail")) {
         res.status(500).json({ success: false, error: err });
       } else {
