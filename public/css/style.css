@@ -4499,7 +4499,7 @@ input[type="button"].btn-block {
   word-wrap: break-word;
   background-color: #fff;
   background-clip: border-box;
-  border: 1px solid rgba(0, 0, 0, 0.125);
+  
   border-radius: 0.25rem;
 }
 
@@ -10553,3 +10553,15 @@ adiv{
     margin-left: 4px;
 }
 
+@media screen and (min-width: 992px) {
+  .card-img-top {
+    width: 33%;
+  }
+  .card-body{
+    width: 100%;
+  }
+  .card{
+    width: 100%;
+  }
+}
+  
