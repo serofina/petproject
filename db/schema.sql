@@ -93,6 +93,27 @@ CREATE TABLE pets (
   FOREIGN KEY (userId) REFERENCES users(iduser)
 );
 
+use pets_db;
+create table if not exists booking_type (
+	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  name varchar(50) not null
+);
+
+use pets_db;
+insert into booking_type (name) values ('Daycare'),('Boarding'),('Booking');
+use pets_db;
+select id from booking_type where name='Daycare';
+
+use pets_db;
+create table if not exists booking (
+	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  date date not null,
+  time time not null,
+  type int not null REFERENCES booking_type(id),
+  user_id int not null REFERENCES user(id)
+);
+use pets_db;
+
 
         INSERT INTO pets (`iduser`) VALUES (@userid);
 

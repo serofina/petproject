@@ -229,6 +229,30 @@ router.get("/api/customerinformation", authenticateToken, (req, res) => {
   );
 });
 
+router.post("/api/booking", authenticateToken, (req, res) => {
+  let {date, time, service} = req.body;
+  let {iduser} = req.user;
+
+  if (iduser == null) {
+    res.redirect('/signup')
+  }
+
+  connection.query(
+    'insert into booking (date, time, type, user_id) values (?, ?, (select id from booking_type where name=?), ?);',
+    [date, time, service, iduser],
+    (err, result) => {
+      if (err) {
+        console.log(err)
+        
+        res.status(500).json({
+          error: "Database error"
+      })} else {
+        res.status({success: true})
+      }
+    }
+  );
+})
+
 router.get("/auth", authenticateToken, (req, res) => {
   res.json({ authenticated: true });
 });
