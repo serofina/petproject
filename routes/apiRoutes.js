@@ -218,24 +218,40 @@ router.put("/api/customerform", authenticateToken, (req, res) => {
 });
 
 router.get("/api/customerinformation", authenticateToken, (req, res) => {
+  console.log("hello")
   let { iduser } = req.user;
   connection.query(
     "SELECT * FROM users, customerinfo where users.iduser= customerinfo.iduser and users.iduser = ?;",
     [iduser],
     (err, result) => {
-      if (err) res.status(404).json({ error: "No user" });
+      if (err){ 
+        console.log(err)
+        res.status(404).json({ error: "No user" })
+      };
       res.json(result);
     }
   );
 });
 
+router.post('/api/get_user', authenticateToken, (req, res) => {
+  if (req.user) {
+    res.json({
+      user: req.user
+    })
+  } else {
+    res.sendStatus(403)
+  }
+})
+
 router.post("/api/booking", authenticateToken, (req, res) => {
+  console.log(req.body)
   let {date, time, service} = req.body;
   let {iduser} = req.user;
 
   if (iduser == null) {
     res.redirect('/signup')
   }
+  console.log(date, time, service)
 
   connection.query(
     'insert into booking (date, time, type, user_id) values (?, ?, (select id from booking_type where name=?), ?);',

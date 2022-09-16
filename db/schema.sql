@@ -3,6 +3,14 @@ DROP DATABASE IF EXISTS pets_db;
 CREATE DATABASE pets_db;
 
 USE pets_db;
+select * from customerinfo ci
+inner join users u on ci.iduser= u.iduser;
+
+use pets_db;
+select * from users;
+
+use pets_db;
+select * from booking;
 
 CREATE TABLE customerinfo (
   id INT NOT NULL AUTO_INCREMENT,
@@ -68,6 +76,9 @@ BEGIN
     END IF;
 END$$
 DELIMITER ;
+
+use pets_db;
+select * from pets;
 
 
 CREATE TABLE pets (
