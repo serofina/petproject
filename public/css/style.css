@@ -10553,6 +10553,11 @@ adiv{
     margin-left: 4px;
 }
 
+.card-img-top-booking {
+  width: 100%;
+}
+
+
 @media screen and (min-width: 992px) {
   .card-img-top {
     width: 33%;
