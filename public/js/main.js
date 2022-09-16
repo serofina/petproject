@@ -270,7 +270,11 @@ if (bookingrequest) {
     fetch('/api/booking', {
       method: "POST",
       headers: myHeaders,
+      redirect: "follow",
       body: body
+    })
+    .then(() => {
+      window.location = "/confirmation"
     })
 
     //const bookingemail = "booking@pethotel.com";

@@ -263,10 +263,35 @@ router.post("/api/booking", authenticateToken, (req, res) => {
         res.status(500).json({
           error: "Database error"
       })} else {
-        res.status({success: true})
+        //res.status({success: true})
+        res.redirect("/confirmation")
       }
     }
   );
+})
+
+router.get("/api/confirmation", authenticateToken, (req, res) => {
+  let {iduser} = req.user;
+
+  connection.query(
+    `select * 
+    from booking
+    where user_id=? 
+    order by confirmation_time desc
+    limit 1`,
+    [iduser],
+    (err, result) => {
+      if (err) {
+        console.log(err)
+        
+        res.status(500).json({
+          error: "Database error"
+      })} else {
+        res.json(result)
+      }
+    }
+  )
+
 })
 
 router.get("/auth", authenticateToken, (req, res) => {

@@ -12,6 +12,9 @@ select * from users;
 use pets_db;
 select * from booking;
 
+use pets_db;
+select * from booking where user_id=225 order by confirmation_time desc limit 1;
+
 CREATE TABLE customerinfo (
   id INT NOT NULL AUTO_INCREMENT,
   iduser VARCHAR(40) DEFAULT NULL,
@@ -113,6 +116,7 @@ create table if not exists booking_type (
 use pets_db;
 insert into booking_type (name) values ('Daycare'),('Boarding'),('Booking');
 use pets_db;
+select * from booking_type;
 select id from booking_type where name='Daycare';
 
 use pets_db;
@@ -124,6 +128,9 @@ create table if not exists booking (
   user_id int not null REFERENCES user(id)
 );
 use pets_db;
+
+alter table booking
+add column confirmation_time timestamp not null default now();
 
 
         INSERT INTO pets (`iduser`) VALUES (@userid);
