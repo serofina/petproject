@@ -129,6 +129,12 @@ create table if not exists booking (
 );
 use pets_db;
 
+-- Display Bookings
+use pets_db;
+select * from booking b
+inner join users u 
+on b.user_id = u.iduser;
+
 alter table booking
 add column confirmation_time timestamp not null default now();
 
