@@ -274,11 +274,7 @@ router.get("/api/confirmation", authenticateToken, (req, res) => {
   let {iduser} = req.user;
 
   connection.query(
-    `select * 
-    from booking
-    where user_id=? 
-    order by confirmation_time desc
-    limit 1`,
+    `select * from booking where user_id=? order by confirmation_time desc limit 1`,
     [iduser],
     (err, result) => {
       if (err) {
