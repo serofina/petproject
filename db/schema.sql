@@ -3,6 +3,17 @@ DROP DATABASE IF EXISTS pets_db;
 CREATE DATABASE pets_db;
 
 USE pets_db;
+select * from customerinfo ci
+inner join users u on ci.iduser= u.iduser;
+
+use pets_db;
+select * from users;
+
+use pets_db;
+select * from booking;
+
+use pets_db;
+select * from booking where user_id=225 order by confirmation_time desc limit 1;
 
 CREATE TABLE customerinfo (
   id INT NOT NULL AUTO_INCREMENT,
@@ -69,6 +80,9 @@ BEGIN
 END$$
 DELIMITER ;
 
+use pets_db;
+select * from pets;
+
 
 CREATE TABLE pets (
 	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -92,6 +106,37 @@ CREATE TABLE pets (
   userId INT NOT NULL,
   FOREIGN KEY (userId) REFERENCES users(iduser)
 );
+
+use pets_db;
+create table if not exists booking_type (
+	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  name varchar(50) not null
+);
+
+use pets_db;
+insert into booking_type (name) values ('Daycare'),('Boarding'),('Booking');
+use pets_db;
+select * from booking_type;
+select id from booking_type where name='Daycare';
+
+use pets_db;
+create table if not exists booking (
+	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  date date not null,
+  time time not null,
+  type int not null REFERENCES booking_type(id),
+  user_id int not null REFERENCES user(id)
+);
+use pets_db;
+
+-- Display Bookings
+use pets_db;
+select * from booking b
+inner join users u 
+on b.user_id = u.iduser;
+
+alter table booking
+add column confirmation_time timestamp not null default now();
 
 
         INSERT INTO pets (`iduser`) VALUES (@userid);

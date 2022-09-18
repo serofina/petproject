@@ -25,6 +25,10 @@ router.get("/customerform", (req, res) => {
   res.sendFile(path.join(__dirname, "../public/customerform.html"));
 });
 
+router.get("/confirmation", (req, res) => {
+  res.sendFile(path.join(__dirname, "../public/confirmation.html"));
+});
+
 router.get("/faqs", (req, res) => {
   res.sendFile(path.join(__dirname, "../public/faqs.html"));
 });

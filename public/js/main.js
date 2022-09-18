@@ -246,21 +246,46 @@ if (bookingrequest) {
   bookingrequest.addEventListener("submit", (event) => {
     event.preventDefault();
 
-    const name = document.querySelector("#booking-name").value;
-    const email = document.querySelector("#booking-email").value;
+    //const name = document.querySelector("#booking-name").value;
+    //const email = document.querySelector("#booking-email").value;
     const date = document.querySelector("#booking-date").value;
     const time = document.querySelector("#booking-time").value;
     const service = document.querySelector("#booking-service").value;
 
-    const bookingemail = "booking@pethotel.com";
-    const subject = `BOOKING REQUEST ${name} ${email} ${date} ${time} ${service};`;
-    const message = `${name} would like to book ${service} on ${date} at ${time}. \n\n His contact is ${email}`;
+    const token = localStorage.getItem("accessToken");
+    let myHeaders = new Headers();
+    myHeaders.append("Authorization", `Bearer ${token}`);
+    myHeaders.append("Content-Type", "application/json")
 
-    sendMail(bookingemail, subject, message);
-    alert(
-      "Your request has been set to our staff. If you have any questions, please contact us at 619-555-1234 or info@pet-hotel.com."
-    );
-    bookingrequest.reset();
+    let timeA = new Date();
+
+    let body = JSON.stringify({
+      date: new Date(date).toISOString().substring(0, 10),
+      time: new Date(date + " " + time).toISOString().substring(11, 16),
+      service
+    });
+
+    console.log(body)
+
+    fetch('/api/booking', {
+      method: "POST",
+      headers: myHeaders,
+      redirect: "follow",
+      body: body
+    })
+    .then(() => {
+      window.location = "/confirmation"
+    })
+
+    //const bookingemail = "booking@pethotel.com";
+    //const subject = `BOOKING REQUEST ${name} ${email} ${date} ${time} ${service};`;
+    //const message = `${name} would like to book ${service} on ${date} at ${time}. \n\n His contact is ${email}`;
+//
+    //sendMail(bookingemail, subject, message);
+    //alert(
+    //  "Your request has been set to our staff. If you have any questions, please contact us at 619-555-1234 or info@pet-hotel.com."
+    //);
+    //bookingrequest.reset();
   });
 }
 
