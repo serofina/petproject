@@ -2,6 +2,7 @@ DROP DATABASE IF EXISTS pets_db;
 
 CREATE DATABASE pets_db;
 
+-- Display customer information
 USE pets_db;
 select * from customerinfo ci
 inner join users u on ci.iduser= u.iduser;
