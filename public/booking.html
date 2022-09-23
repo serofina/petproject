@@ -389,18 +389,16 @@
   <!-- Template Javascript -->
   <script src="js/main.js"></script>
   <script>
-    if (localStorage.getItem("accessToken") != null) {
-      // Is logged in
 
+    // Determines if the user is logged in.
+    if (localStorage.getItem("accessToken") != null) {
+      // Is logged in. 
       const token = localStorage.getItem("accessToken");
       let myHeaders = new Headers();
       myHeaders.append("Authorization", `Bearer ${token}`);
       fetch("/api/customerinformation", {
         method: "GET",
-        headers: myHeaders,
-        //body: JSON.stringify({
-        //  token: localStorage.getItem("accessToken")
-       // })
+        headers: myHeaders
       })
       .then(response => response.json())
       .then(info => {
@@ -414,17 +412,17 @@
       })
       .catch(e => {
         console.log(e)
+        // Any issue with the token, or getting customer information then just assume they're logged out.
         renderGetStarted()
       })
     } else {
-      // Is NOT logged in
+      // Is NOT logged inF
       renderGetStarted()
     }
 
     function renderGetStarted() {
       let bookingForm = document.getElementById("booking-form");
         bookingForm.innerHTML = `<h1>Get Started Today</h1><a class="form-btn btn-primary" href="/registration">Sign Up</a>`
-
     }
   </script>
 </body>

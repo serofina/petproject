@@ -11,7 +11,12 @@ use pets_db;
 select * from users;
 
 use pets_db;
-select * from booking;
+select * from booking b
+inner join users u on b.user_id = u.iduser
+inner join customerinfo ci on ci.iduser= u.iduser;
+
+use pets_db;
+select * from booking b;
 
 use pets_db;
 select * from booking where user_id=225 order by confirmation_time desc limit 1;
@@ -32,6 +37,9 @@ CREATE TABLE customerinfo (
   PRIMARY KEY (id),
   UNIQUE KEY userid_UNIQUE (iduser)
 ) ENGINE=InnoDB AUTO_INCREMENT=81 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+use pets_db;
+select * from customerinfo;
 
 
 CREATE TABLE login (

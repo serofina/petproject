@@ -202,11 +202,22 @@ router.put("/api/customerform", authenticateToken, (req, res) => {
     emergencyPhone,
   } = req.body;
 
+  console.log(iduser,firstName,
+    lastName,
+    phone,
+    address,
+    address2,
+    city,
+    state,
+    zip,
+    emergencyContact,
+    emergencyPhone)
+
   connection.query(
     `UPDATE customerinfo SET firstName = "${firstName}", lastName ="${lastName}", 
     phone = "${phone}", address = "${address}", address2 = "${address2}", city = "${city}", 
     state = "${state}", zip = "${zip}", emergencyContact = "${emergencyContact}", emergencyphone = "${emergencyPhone}"
-    WHERE (iduser = '${iduser}');`,
+    WHERE iduser = '${iduser}';`,
     function (err, result) {
       if (result.affectedRows === 0 || err) {
         res.status(500).json({ success: false, error: err });
