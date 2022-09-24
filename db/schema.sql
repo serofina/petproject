@@ -2,13 +2,17 @@ DROP DATABASE IF EXISTS pets_db;
 
 CREATE DATABASE pets_db;
 
+use pets_db;
+select * from users;
+
 -- Display customer information
 USE pets_db;
 select * from customerinfo ci
 inner join users u on ci.iduser= u.iduser;
 
 use pets_db;
-select * from users;
+select * from login l
+inner join users u on u.iduser=l.iduser;
 
 use pets_db;
 select * from booking b

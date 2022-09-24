@@ -298,42 +298,45 @@
         <div class="col-lg-5">
           <div class="bg-primary py-5 px-4 px-sm-5">
             <form class="py-5" id="booking-form" action = "submit">
-              <div class="form-group">
-                <input type="text" id= "booking-name"  class="form-control-booking border-0 p-4" placeholder="Your Name" required="required" />
-              </div>
-              <div class="form-group">
-                <input type="email" id= "booking-email" class="form-control-booking border-0 p-4" placeholder="Your Email" required="required" />
-              </div>
-              <div class="form-group">
-                <div class="date" id="date" data-target-input="nearest">
-                  <input type="text" id= "booking-date"class="form-control-booking border-0 p-4 datetimepicker-input"
-                    placeholder="Reservation Date" data-target="#date" data-toggle="datetimepicker" />
+              
+              <h1 id="NameDisplay"></h3>
+                <h4 id="MessageBooking"><h4>
+                <!--<div class="form-group">
+                  <input type="text" id= "booking-name" name="name" class="form-control-booking border-0 p-4" placeholder="Your Name" required="required" />
                 </div>
-              </div>
-
-              
-              
-              <div class="form-group">
-                <div class="time" id="time" data-target-input="nearest">
-                  <input type="text" id= "booking-time" class="form-control-booking border-0 p-4 datetimepicker-input"
-                    placeholder="Reservation Time" data-target="#time" data-toggle="datetimepicker" />
+                <div class="form-group">
+                  <input type="email" id= "booking-email" name="email" class="form-control-booking border-0 p-4" placeholder="Your Email" required="required" />
+                </div>-->
+                <div class="form-group">
+                  <div class="date" id="date" data-target-input="nearest">
+                    <input type="text" id= "booking-date" name="date" class="form-control-booking border-0 p-4 datetimepicker-input"
+                      placeholder="Reservation Date" data-target="#date" data-toggle="datetimepicker" />
+                  </div>
                 </div>
-              </div>
-              <div class="form-group">
-                <select class="custom-select border-0 px-4" id= "booking-service"style="height: 47px">
-                  <option selected>Select A Service</option>
-                  <option value="Dog Daycare">Dog Daycare</option>
-                  <option value="Overnight Boarding">Dog Bording</option>
-                  <option value="Dog Grooming">Dog Grooming</option>
-                  
-                </select>
-              </div>
-              
-              <div>
-                <button class="btn btn-dark btn-block border-0 py-3" type="submit">
-                  Book Now
-                </button>
-              </div>
+  
+                
+                
+                <div class="form-group">
+                  <div class="time" id="time" data-target-input="nearest">
+                    <input type="text" id= "booking-time" name="time" class="form-control-booking border-0 p-4 datetimepicker-input"
+                      placeholder="Reservation Time" data-target="#time" data-toggle="datetimepicker" />
+                  </div>
+                </div>
+                <div class="form-group">
+                  <select class="custom-select border-0 px-4" id= "booking-service" name="service" style="height: 47px">
+                    <option selected>Select A Service</option>
+                    <option value="Daycare">Dog Daycare</option>
+                    <option value="Boarding">Dog Bording</option>
+                    <option value="Grooming">Dog Grooming</option>
+                    
+                  </select>
+                </div>
+                
+                <div>
+                  <button class="btn btn-dark btn-block border-0 py-3" type="submit">
+                    Book Now
+                  </button>
+                </div>
             </form>
           </div>
         </div>
@@ -561,6 +564,10 @@
 
   <!-- Template Javascript -->
   <script src="js/main.js"></script>
+  <script>
+    
+    booking_form_render()
+  </script>
 </body>
 
 </html>
