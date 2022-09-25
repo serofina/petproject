@@ -639,6 +639,42 @@ jQuery(document).ready(function ($) {
   target.parent().addClass("active");
 });
 
+function booking_form_render() {
+  // Determines if the user is logged in.
+  if (localStorage.getItem("accessToken") != null) {
+    // Is logged in. 
+    const token = localStorage.getItem("accessToken");
+    let myHeaders = new Headers();
+    myHeaders.append("Authorization", `Bearer ${token}`);
+    fetch("/api/customerinformation", {
+      method: "GET",
+      headers: myHeaders
+    })
+    .then(response => response.json())
+    .then(info => {
+      console.log(info)
+      let NameDisplay = document.getElementById("NameDisplay")
+      let Message = document.getElementById("MessageBooking")
+      NameDisplay.innerHTML = `Hello,  ${ info[0].firstName}`
+      Message.innerHTML = "Fill the form below to schedule your service!"
+      //NameDisplay.innerHTML = user.user.name;
+
+    })
+    .catch(e => {
+      console.log(e)
+      // Any issue with the token, or getting customer information then just assume they're logged out.
+      renderGetStarted()
+    })
+  } else {
+    // Is NOT logged inF
+    renderGetStarted()
+  }
+}
+
+function renderGetStarted() {
+  let bookingForm = document.getElementById("booking-form");
+    bookingForm.innerHTML = `<h1>Get Started Today</h1><a class="form-btn btn-primary" href="/registration">Sign Up</a>`
+}
 // Add active class on another page linked
 // ==========================================
 // $(window).on("load", function () {

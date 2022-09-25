@@ -389,43 +389,8 @@
   <!-- Template Javascript -->
   <script src="js/main.js"></script>
   <script>
-    if (localStorage.getItem("accessToken") != null) {
-      // Is logged in
 
-      const token = localStorage.getItem("accessToken");
-      let myHeaders = new Headers();
-      myHeaders.append("Authorization", `Bearer ${token}`);
-      fetch("/api/customerinformation", {
-        method: "GET",
-        headers: myHeaders,
-        //body: JSON.stringify({
-        //  token: localStorage.getItem("accessToken")
-       // })
-      })
-      .then(response => response.json())
-      .then(info => {
-        console.log(info)
-        let NameDisplay = document.getElementById("NameDisplay")
-        let Message = document.getElementById("MessageBooking")
-        NameDisplay.innerHTML = `Hello,  ${ info[0].firstName}`
-        Message.innerHTML = "Fill the form below to schedule your service!"
-        //NameDisplay.innerHTML = user.user.name;
-
-      })
-      .catch(e => {
-        console.log(e)
-        renderGetStarted()
-      })
-    } else {
-      // Is NOT logged in
-      renderGetStarted()
-    }
-
-    function renderGetStarted() {
-      let bookingForm = document.getElementById("booking-form");
-        bookingForm.innerHTML = `<h1>Get Started Today</h1><a class="form-btn btn-primary" href="/registration">Sign Up</a>`
-
-    }
+    booking_form_render()
   </script>
 </body>
 
