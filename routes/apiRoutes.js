@@ -116,13 +116,13 @@ router.post("/api/signin", (req, res) => {
 router.post("/api/mailto", (req, res) => {
   let { email, subject, message } = req.body;
   const transporter = nodemailer.createTransport({
-    host: "smtp.ethereal.email",
+    host: 'smtp.ethereal.email',
     port: 587,
     auth: {
-      user: "boris66@ethereal.email",
-      pass: "b6wVK8CRsJ5XDMJsTa",
-    },
-  });
+        user: 'preston.greenholt@ethereal.email',
+        pass: '8C514yaYGbGfbxqSs6'
+    }
+});
 
   let mailOptions = {
     from: "pethotelnational@Ethereal.com ",
