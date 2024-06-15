@@ -92,7 +92,7 @@ router.get("/api/cloudSignature", authenticateToken, async (req, res) => {
 router.post("/api/signin", (req, res) => {
   const { email, password } = req.body;
   connection.query(
-    `SELECT * FROM users, login where users.iduser=login.iduser and email = ?`,
+    `SELECT * FROM users WHERE email = ?`,
     [email],
     async function (error, results) {
       if (error) {
@@ -101,7 +101,7 @@ router.post("/api/signin", (req, res) => {
           .json({ success: false, message: "Login not successful" });
       } else {
         if (results.length > 0) {
-          const isvalid = bcrypt.compareSync(password, results[0].hash);
+          const isvalid = bcrypt.compareSync(password, results[0].password);
           if (isvalid) {
             const username = results[0].name;
             const email = results[0].email;
@@ -187,13 +187,16 @@ router.post("/api/register", (req, res) => {
   console.log(req.body);
   const { email, name, password } = req.body;
   const hash = bcrypt.hashSync(password, 10);
+
   connection.query(
-    `call addUser ("${name}", "${email}", "${hash}")`,
+    `INSERT INTO users (name, email, password) VALUES (?, ?, ?)`,
+    [name, email, hash],
     function (err, result) {
-      if (result[0][0].hasOwnProperty("fail")) {
-        res.status(500).json({ success: false, error: err });
+      if (err) {
+        console.error(err);
+        return res.status(500).json({ success: false, error: err.message });
       } else {
-        res.json({ success: true });
+        return res.json({ success: true });
       }
     }
   );

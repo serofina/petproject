@@ -577,7 +577,7 @@ const decodeToken = async (token) => {
 //second navbar
 
 // ---------Responsive-navbar-active-animation-----------
-if ($("#navbarSupportedContent")) {
+if (document.querySelector("#navbarSupportedContent")) {
   function test() {
     var tabsNewAnim = $("#navbarSupportedContent");
     var activeItemNewAnim = tabsNewAnim.find(".active");
