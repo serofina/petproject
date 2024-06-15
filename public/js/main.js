@@ -212,7 +212,7 @@ if (newsletter_email) {
     const message = document.querySelector("#newsletter-message").value;
 
     const token = localStorage.getItem("accessToken");
-  
+
     let myHeaders = new Headers();
     myHeaders.append("Authorization", `Bearer ${token}`);
 
@@ -255,32 +255,31 @@ if (bookingrequest) {
     const token = localStorage.getItem("accessToken");
     let myHeaders = new Headers();
     myHeaders.append("Authorization", `Bearer ${token}`);
-    myHeaders.append("Content-Type", "application/json")
+    myHeaders.append("Content-Type", "application/json");
 
     let timeA = new Date();
 
     let body = JSON.stringify({
       date: new Date(date).toISOString().substring(0, 10),
       time: new Date(date + " " + time).toISOString().substring(11, 16),
-      service
+      service,
     });
 
-    console.log(body)
+    console.log(body);
 
-    fetch('/api/booking', {
+    fetch("/api/booking", {
       method: "POST",
       headers: myHeaders,
       redirect: "follow",
-      body: body
-    })
-    .then(() => {
-      window.location = "/confirmation"
-    })
+      body: body,
+    }).then(() => {
+      window.location = "/confirmation";
+    });
 
     //const bookingemail = "booking@pethotel.com";
     //const subject = `BOOKING REQUEST ${name} ${email} ${date} ${time} ${service};`;
     //const message = `${name} would like to book ${service} on ${date} at ${time}. \n\n His contact is ${email}`;
-//
+    //
     //sendMail(bookingemail, subject, message);
     //alert(
     //  "Your request has been set to our staff. If you have any questions, please contact us at 619-555-1234 or info@pet-hotel.com."
@@ -578,51 +577,52 @@ const decodeToken = async (token) => {
 //second navbar
 
 // ---------Responsive-navbar-active-animation-----------
-function test() {
-  var tabsNewAnim = $("#navbarSupportedContent");
-  var selectorNewAnim = $("#navbarSupportedContent").find("li").length;
-  var activeItemNewAnim = tabsNewAnim.find(".active");
-  var activeWidthNewAnimHeight = activeItemNewAnim.innerHeight();
-  var activeWidthNewAnimWidth = activeItemNewAnim.innerWidth();
-  var itemPosNewAnimTop = activeItemNewAnim.position();
-  var itemPosNewAnimLeft = activeItemNewAnim.position();
-  $(".hori-selector").css({
-    top: itemPosNewAnimTop.top + "px",
-    left: itemPosNewAnimLeft.left + "px",
-    height: activeWidthNewAnimHeight + "px",
-    width: activeWidthNewAnimWidth + "px",
-  });
-  $("#navbarSupportedContent").on("click", "li", function (e) {
-    $("#navbarSupportedContent ul li").removeClass("active");
-    $(this).addClass("active");
-    var activeWidthNewAnimHeight = $(this).innerHeight();
-    var activeWidthNewAnimWidth = $(this).innerWidth();
-    var itemPosNewAnimTop = $(this).position();
-    var itemPosNewAnimLeft = $(this).position();
+if ($("#navbarSupportedContent")) {
+  function test() {
+    var tabsNewAnim = $("#navbarSupportedContent");
+    var activeItemNewAnim = tabsNewAnim.find(".active");
+    var activeWidthNewAnimHeight = activeItemNewAnim.innerHeight();
+    var activeWidthNewAnimWidth = activeItemNewAnim.innerWidth();
+    var itemPosNewAnimTop = activeItemNewAnim.position();
+    var itemPosNewAnimLeft = activeItemNewAnim.position();
     $(".hori-selector").css({
       top: itemPosNewAnimTop.top + "px",
       left: itemPosNewAnimLeft.left + "px",
       height: activeWidthNewAnimHeight + "px",
       width: activeWidthNewAnimWidth + "px",
     });
+    $("#navbarSupportedContent").on("click", "li", function (e) {
+      $("#navbarSupportedContent ul li").removeClass("active");
+      $(this).addClass("active");
+      var activeWidthNewAnimHeight = $(this).innerHeight();
+      var activeWidthNewAnimWidth = $(this).innerWidth();
+      var itemPosNewAnimTop = $(this).position();
+      var itemPosNewAnimLeft = $(this).position();
+      $(".hori-selector").css({
+        top: itemPosNewAnimTop.top + "px",
+        left: itemPosNewAnimLeft.left + "px",
+        height: activeWidthNewAnimHeight + "px",
+        width: activeWidthNewAnimWidth + "px",
+      });
+    });
+  }
+  $(document).ready(function () {
+    setTimeout(function () {
+      test();
+    });
+  });
+  $(window).on("resize", function () {
+    setTimeout(function () {
+      test();
+    }, 500);
+  });
+  $(".navbar-toggler").click(function () {
+    $(".navbar-collapse").slideToggle(300);
+    setTimeout(function () {
+      test();
+    });
   });
 }
-$(document).ready(function () {
-  setTimeout(function () {
-    test();
-  });
-});
-$(window).on("resize", function () {
-  setTimeout(function () {
-    test();
-  }, 500);
-});
-$(".navbar-toggler").click(function () {
-  $(".navbar-collapse").slideToggle(300);
-  setTimeout(function () {
-    test();
-  });
-});
 
 // --------------add active class-on another-page move----------
 jQuery(document).ready(function ($) {
@@ -642,38 +642,37 @@ jQuery(document).ready(function ($) {
 function booking_form_render() {
   // Determines if the user is logged in.
   if (localStorage.getItem("accessToken") != null) {
-    // Is logged in. 
+    // Is logged in.
     const token = localStorage.getItem("accessToken");
     let myHeaders = new Headers();
     myHeaders.append("Authorization", `Bearer ${token}`);
     fetch("/api/customerinformation", {
       method: "GET",
-      headers: myHeaders
+      headers: myHeaders,
     })
-    .then(response => response.json())
-    .then(info => {
-      console.log(info)
-      let NameDisplay = document.getElementById("NameDisplay")
-      let Message = document.getElementById("MessageBooking")
-      NameDisplay.innerHTML = `Hello,  ${ info[0].firstName}`
-      Message.innerHTML = "Fill the form below to schedule your service!"
-      //NameDisplay.innerHTML = user.user.name;
-
-    })
-    .catch(e => {
-      console.log(e)
-      // Any issue with the token, or getting customer information then just assume they're logged out.
-      renderGetStarted()
-    })
+      .then((response) => response.json())
+      .then((info) => {
+        console.log(info);
+        let NameDisplay = document.getElementById("NameDisplay");
+        let Message = document.getElementById("MessageBooking");
+        NameDisplay.innerHTML = `Hello,  ${info[0].firstName}`;
+        Message.innerHTML = "Fill the form below to schedule your service!";
+        //NameDisplay.innerHTML = user.user.name;
+      })
+      .catch((e) => {
+        console.log(e);
+        // Any issue with the token, or getting customer information then just assume they're logged out.
+        renderGetStarted();
+      });
   } else {
     // Is NOT logged inF
-    renderGetStarted()
+    renderGetStarted();
   }
 }
 
 function renderGetStarted() {
   let bookingForm = document.getElementById("booking-form");
-    bookingForm.innerHTML = `<h1>Get Started Today</h1><a class="form-btn btn-primary" href="/registration">Sign Up</a>`
+  bookingForm.innerHTML = `<h1>Get Started Today</h1><a class="form-btn btn-primary" href="/registration">Sign Up</a>`;
 }
 // Add active class on another page linked
 // ==========================================
