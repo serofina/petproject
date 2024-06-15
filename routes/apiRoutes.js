@@ -18,41 +18,52 @@ router.post("/api/decode", authenticateToken, (req, res) => {
 
 router.post("/api/pet-insert", authenticateToken, (req, res) => {
   let { iduser } = req.user;
-  connection.query("INSERT INTO `pets` (`userid`) VALUES (?);", iduser, (err, result) => {
-    if (err) {
-      res.status(500).json({ error: err });
-    }else{
-    res.json({
-      success: true,
-    });
-  }
-  });
+  connection.query(
+    "INSERT INTO `pets` (`userid`) VALUES (?);",
+    iduser,
+    (err, result) => {
+      if (err) {
+        res.status(500).json({ error: err });
+      } else {
+        res.json({
+          success: true,
+        });
+      }
+    }
+  );
 });
 
 router.put("/api/pet-update/:pet_id", authenticateToken, (req, res) => {
-  connection.query("update pets SET ? where id =?", [req.body,req.params.pet_id],
-   (err, result) => {
-    if (err) {
-      res.status(500).json({ error: err });
-    }else{
-    res.json({
-      success: true,
-    });
-  }
-  });
+  connection.query(
+    "update pets SET ? where id =?",
+    [req.body, req.params.pet_id],
+    (err, result) => {
+      if (err) {
+        res.status(500).json({ error: err });
+      } else {
+        res.json({
+          success: true,
+        });
+      }
+    }
+  );
 });
 
 router.get("/api/petform_info/:pet_id", authenticateToken, (req, res) => {
-  connection.query("SELECT * FROM pets where id = ?;",req.params.pet_id, (err, result) => {
-    if (err) {
-      res.status(500).json({ error: err });
-    }else{
-    res.json({
-      success: true,
-      data: result,
-    });
-  }
-  });
+  connection.query(
+    "SELECT * FROM pets where id = ?;",
+    req.params.pet_id,
+    (err, result) => {
+      if (err) {
+        res.status(500).json({ error: err });
+      } else {
+        res.json({
+          success: true,
+          data: result,
+        });
+      }
+    }
+  );
 });
 
 router.get("/api/pet-form/:userId", authenticateToken, (req, res) => {
@@ -62,12 +73,12 @@ router.get("/api/pet-form/:userId", authenticateToken, (req, res) => {
     (err, result) => {
       if (err) {
         res.status(500).json({ error: err });
-      }else{
-      res.json({
-        success: true,
-        data: result,
-      });
-    }
+      } else {
+        res.json({
+          success: true,
+          data: result,
+        });
+      }
     }
   );
 });
@@ -116,13 +127,13 @@ router.post("/api/signin", (req, res) => {
 router.post("/api/mailto", (req, res) => {
   let { email, subject, message } = req.body;
   const transporter = nodemailer.createTransport({
-    host: 'smtp.ethereal.email',
+    host: "smtp.ethereal.email",
     port: 587,
     auth: {
-        user: 'preston.greenholt@ethereal.email',
-        pass: '8C514yaYGbGfbxqSs6'
-    }
-});
+      user: "preston.greenholt@ethereal.email",
+      pass: "8C514yaYGbGfbxqSs6",
+    },
+  });
 
   let mailOptions = {
     from: "pethotelnational@Ethereal.com ",
@@ -148,31 +159,32 @@ router.post("/api/newsletterAddMember", (req, res) => {
     (err) => {
       if (err) {
         res.status(404).json({ error: err });
-      }else{
-      res.json({
-        success: true,
-      });
-    }
+      } else {
+        res.json({
+          success: true,
+        });
+      }
     }
   );
 });
 
-router.get("/api/newsletterSubmit", authenticateToken,(req, res) => {
+router.get("/api/newsletterSubmit", authenticateToken, (req, res) => {
   let { iduser } = req.user;
-    if (iduser===155) {
-      connection.query("SELECT * FROM newsletter", function (err, result) {
-        if (err) {
-          res.status(404).json({ error: err });
-        }else{
+  if (iduser === 155) {
+    connection.query("SELECT * FROM newsletter", function (err, result) {
+      if (err) {
+        res.status(404).json({ error: err });
+      } else {
         res.json({ result });
-        }
-      });
-    }else{  res.status(404).json({ error: "invalid User" });
+      }
+    });
+  } else {
+    res.status(404).json({ error: "invalid User" });
   }
 });
 
-
 router.post("/api/register", (req, res) => {
+  console.log(req.body);
   const { email, name, password } = req.body;
   const hash = bcrypt.hashSync(password, 10);
   connection.query(
@@ -202,7 +214,9 @@ router.put("/api/customerform", authenticateToken, (req, res) => {
     emergencyPhone,
   } = req.body;
 
-  console.log(iduser,firstName,
+  console.log(
+    iduser,
+    firstName,
     lastName,
     phone,
     address,
@@ -211,7 +225,8 @@ router.put("/api/customerform", authenticateToken, (req, res) => {
     state,
     zip,
     emergencyContact,
-    emergencyPhone)
+    emergencyPhone
+  );
 
   connection.query(
     `UPDATE customerinfo SET firstName = "${firstName}", lastName ="${lastName}", 
@@ -229,77 +244,78 @@ router.put("/api/customerform", authenticateToken, (req, res) => {
 });
 
 router.get("/api/customerinformation", authenticateToken, (req, res) => {
-  console.log("hello")
+  console.log("hello");
   let { iduser } = req.user;
   connection.query(
     "SELECT * FROM users, customerinfo where users.iduser= customerinfo.iduser and users.iduser = ?;",
     [iduser],
     (err, result) => {
-      if (err){ 
-        console.log(err)
-        res.status(404).json({ error: "No user" })
-      };
+      if (err) {
+        console.log(err);
+        res.status(404).json({ error: "No user" });
+      }
       res.json(result);
     }
   );
 });
 
-router.post('/api/get_user', authenticateToken, (req, res) => {
+router.post("/api/get_user", authenticateToken, (req, res) => {
   if (req.user) {
     res.json({
-      user: req.user
-    })
+      user: req.user,
+    });
   } else {
-    res.sendStatus(403)
+    res.sendStatus(403);
   }
-})
+});
 
 router.post("/api/booking", authenticateToken, (req, res) => {
-  console.log(req.body)
-  let {date, time, service} = req.body;
-  let {iduser} = req.user;
+  console.log(req.body);
+  let { date, time, service } = req.body;
+  let { iduser } = req.user;
 
   if (iduser == null) {
-    res.redirect('/signup')
+    res.redirect("/signup");
   }
-  console.log(date, time, service)
+  console.log(date, time, service);
 
   connection.query(
-    'insert into booking (date, time, type, user_id) values (?, ?, (select id from booking_type where name=?), ?);',
+    "insert into booking (date, time, type, user_id) values (?, ?, (select id from booking_type where name=?), ?);",
     [date, time, service, iduser],
     (err, result) => {
       if (err) {
-        console.log(err)
-        
+        console.log(err);
+
         res.status(500).json({
-          error: "Database error"
-      })} else {
+          error: "Database error",
+        });
+      } else {
         //res.status({success: true})
-        res.redirect("/confirmation")
+        res.redirect("/confirmation");
       }
     }
   );
-})
+});
 
 router.get("/api/confirmation", authenticateToken, (req, res) => {
-  let {iduser} = req.user;
+  let { iduser } = req.user;
 
   connection.query(
     `select * from booking where user_id=? order by confirmation_time desc limit 1`,
     [iduser],
     (err, result) => {
       if (err) {
-        console.log(err)
-        
+        console.log(err);
+
         res.status(500).json({
-          error: "Database error"
-      })} else {
-        res.json(result)
+          error: "Database error",
+        });
+      } else {
+        res.json(result);
       }
     }
-  )
-
-})
+  );
+});
 
 router.get("/auth", authenticateToken, (req, res) => {
   res.json({ authenticated: true });
